@@ -2,10 +2,10 @@
 
 ## Team Members:
 
-* 
-* 
-* 
-* 
+* Christopher Barber
+* Alfred Jenkins
+* Cale Tennis
+* Morgan Mednick
 
 ## User stories
 
