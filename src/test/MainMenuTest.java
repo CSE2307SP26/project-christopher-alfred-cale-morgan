@@ -11,7 +11,8 @@ public class MainMenuTest {
     @Test
     public void testNewAccount() {
         MainMenu testApp = new MainMenu();
-        testApp.AddAccount();
+        testApp.addAccount();
         assertEquals(2, testApp.getNumAccounts());
     }
+
 }

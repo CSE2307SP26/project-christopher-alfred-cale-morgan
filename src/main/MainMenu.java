@@ -53,7 +53,7 @@ public class MainMenu {
         userAccount.deposit(depositAmount);
     }
 
-    public void AddAccount() {
+    public void addAccount() {
         BankAccount newAccount = new BankAccount();
         this.userAccounts.add(newAccount);
     }
@@ -65,6 +65,7 @@ public class MainMenu {
     /*TODO
     Add a method to switch user accounts
     Update Main Menu options to include changing accounts */
+
 
     public void run() {
         int selection = -1;
