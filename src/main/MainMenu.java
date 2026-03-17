@@ -1,17 +1,22 @@
 package main;
 
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainMenu {
 
     private static final int EXIT_SELECTION = 2;
 	private static final int MAX_SELECTION = 2;
 
-	private BankAccount userAccount;
+	private List<BankAccount> userAccounts;
+    private BankAccount userAccount;
     private Scanner keyboardInput;
 
     public MainMenu() {
+        this.userAccounts = new ArrayList<>();
         this.userAccount = new BankAccount();
+        userAccounts.add(this.userAccount);
         this.keyboardInput = new Scanner(System.in);
     }
 
@@ -46,6 +51,42 @@ public class MainMenu {
             depositAmount = keyboardInput.nextInt();
         }
         userAccount.deposit(depositAmount);
+    }
+
+    public void addAccount() {
+        BankAccount newAccount = new BankAccount();
+        this.userAccounts.add(newAccount);
+    }
+
+    public int getNumAccounts() {
+        return this.userAccounts.size();
+    }
+
+    /*TODO
+    Add a method to switch user accounts
+    Update Main Menu options to include changing accounts */
+
+    public void closeAccount(int index){
+        int numAccounts = this.userAccounts.size();
+        BankAccount accountToDelete;
+        if(index < numAccounts && numAccounts > 1){
+            accountToDelete = this.userAccounts.get(index);
+        } else{
+            throw new IllegalArgumentException();
+        }
+        
+        if(this.userAccount.equals(accountToDelete)){
+            System.out.println("This is the current account. Type 'Y' to confirm");
+            String userInput = this.keyboardInput.nextLine();
+            if(userInput.equals("Y")){
+                this.userAccounts.remove(accountToDelete);
+                this.userAccount = this.userAccounts.get(0);
+            }else{
+                return;
+            }
+        }
+        this.userAccounts.remove(accountToDelete);
+
     }
 
     public void run() {
