@@ -53,7 +53,7 @@ public class MainMenu {
         userAccount.deposit(depositAmount);
     }
 
-    public void AddAccount() {
+    public void addAccount() {
         BankAccount newAccount = new BankAccount();
         this.userAccounts.add(newAccount);
     }
@@ -65,6 +65,29 @@ public class MainMenu {
     /*TODO
     Add a method to switch user accounts
     Update Main Menu options to include changing accounts */
+
+    public void closeAccount(int index){
+        int numAccounts = this.userAccounts.size();
+        BankAccount accountToDelete;
+        if(index < numAccounts && numAccounts > 1){
+            accountToDelete = this.userAccounts.get(index);
+        } else{
+            throw new IllegalArgumentException();
+        }
+        
+        if(this.userAccount.equals(accountToDelete)){
+            System.out.println("This is the current account. Type 'Y' to confirm");
+            String userInput = this.keyboardInput.nextLine();
+            if(userInput.equals("Y")){
+                this.userAccounts.remove(accountToDelete);
+                this.userAccount = this.userAccounts.get(0);
+            }else{
+                return;
+            }
+        }
+        this.userAccounts.remove(accountToDelete);
+
+    }
 
     public void run() {
         int selection = -1;
