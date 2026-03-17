@@ -22,4 +22,9 @@ public class BankAccount {
     public double getBalance() {
         return this.balance;
     }
+
+    public Transactions getTransactions() {
+        return this.transactions;
+    }
 }
+
