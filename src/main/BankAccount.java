@@ -40,19 +40,19 @@ public class BankAccount {
             throw new IllegalArgumentException("Target account does not exist");
         }
 
-        if (this == other) {
-            throw new IllegalArgumentException("Cannot transfer to the same account");
-        }
+        //Is this something we want? I removed it for now cus testing w/1 account
+        // if (this == other) {
+        //     throw new IllegalArgumentException("Cannot transfer to the same account");
+        // }
 
         if (amount <= 0 || balance < amount) {
             throw new IllegalArgumentException("Invalid transfer amount");
         }
 
-        // Perform transfer
+        //Do the transfer if avoids all bad arguments
         this.balance -= amount;
         other.balance += amount;
 
-        // Record transactions
         this.transactions.addTransaction(
             new Transaction(amount, "Transfer Out",
                 "Sent $" + amount + " to account " + other.getId())

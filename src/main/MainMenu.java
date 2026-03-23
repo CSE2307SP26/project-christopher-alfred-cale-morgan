@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 2;
-	private static final int MAX_SELECTION = 2;
+    private static final int EXIT_SELECTION = 4; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 4; //Set to the final number. Increase if you modify displayOptions().
 
     private BankAccounts bankAccounts;
 	private BankAccount userAccount;
@@ -36,7 +36,7 @@ public class MainMenu {
         return selection;
     }
 
-    public void processInput(int selection) {
+    public void processInput(int selection) { //Basically if statement, add cases for each new thing we add
         switch (selection) {
             case 1:
                 performDeposit();
@@ -47,7 +47,7 @@ public class MainMenu {
             case 3:
                 performViewHistory();
                 break;
-            case 4:
+            case 4: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
@@ -59,7 +59,7 @@ public class MainMenu {
             System.out.print("How much would you like to deposit: ");
             depositAmount = keyboardInput.nextInt();
         }
-        System.out.print("Success! Deposited" + depositAmount);
+        System.out.print("Successfully Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
     }
 
@@ -82,9 +82,9 @@ public class MainMenu {
             System.out.println("Account not found.");
             return;
         }
-        
+
         userAccount.transfer(transferAmount, target);
-        System.out.println("Transfer successful!");
+        System.out.println("Transfer of " + transferAmount + " to " + target.getId() + "successful!");
     }
 
 
