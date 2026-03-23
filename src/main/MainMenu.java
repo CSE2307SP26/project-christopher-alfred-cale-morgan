@@ -59,7 +59,7 @@ public class MainMenu {
             System.out.print("How much would you like to deposit: ");
             depositAmount = keyboardInput.nextInt();
         }
-        System.out.print("Successfully Deposited" + depositAmount);
+        System.out.println("Successfully Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
     }
 
