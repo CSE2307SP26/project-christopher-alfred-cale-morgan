@@ -26,5 +26,17 @@ public class BankAccount {
     public Transactions getTransactions() {
         return this.transactions;
     }
+
+    public void transfer(double amount, BankAccount other) {
+        if(amount > 0 && this.balance - amount >=0.0) {
+            this.balance -= amount;
+            other.balance += amount;
+            this.transactions.addTransaction(new Transaction(amount, "Transfer Out", "Sending " + amount));
+            other.transactions.addTransaction(new Transaction(amount, "Transfer To", "Recieving " + amount));
+
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 }
 
