@@ -4,7 +4,8 @@ public class BankAccount {
 
     private double balance;
     private Transactions transactions;
-    private int id;
+    private int id; 
+    //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
     public BankAccount(int id) {
         this.id = id;
