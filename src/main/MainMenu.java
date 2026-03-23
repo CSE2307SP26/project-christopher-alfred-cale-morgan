@@ -7,11 +7,13 @@ public class MainMenu {
     private static final int EXIT_SELECTION = 2;
 	private static final int MAX_SELECTION = 2;
 
+    private BankAccounts bankAccounts;
 	private BankAccount userAccount;
     private Scanner keyboardInput;
 
     public MainMenu() {
-        this.userAccount = new BankAccount();
+        this.bankAccounts = new BankAccounts();
+        this.userAccount = bankAccounts.createAccount(); // create user's account
         this.keyboardInput = new Scanner(System.in);
     }
 
@@ -19,7 +21,9 @@ public class MainMenu {
         System.out.println("Welcome to the 237 Bank App!");
         
         System.out.println("1. Make a deposit");
-        System.out.println("2. Exit the app");
+        System.out.println("2. Make a transfer");
+        System.out.println("3. View your history");
+        System.out.println("4. Exit the app");
 
     }
 
@@ -36,6 +40,16 @@ public class MainMenu {
         switch (selection) {
             case 1:
                 performDeposit();
+                break;
+            case 2:
+                performTransfer();
+                break;
+            case 3:
+                performViewHistory();
+                break;
+            case 4:
+                System.out.println("Exiting!");
+                break;
         }
     }
 
@@ -45,7 +59,39 @@ public class MainMenu {
             System.out.print("How much would you like to deposit: ");
             depositAmount = keyboardInput.nextInt();
         }
+        System.out.print("Success! Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
+    }
+
+
+    public void performTransfer() {
+        double transferAmount = -1;
+        int otherId = -1;
+
+        while (transferAmount <= 0) {
+            System.out.print("How much would you like to transfer: ");
+            transferAmount = keyboardInput.nextDouble();
+        }
+
+        System.out.print("Enter account ID to transfer to: ");
+        otherId = keyboardInput.nextInt();
+
+        BankAccount target = bankAccounts.getAccount(otherId);
+
+        if (target == null) {
+            System.out.println("Account not found.");
+            return;
+        }
+        
+        userAccount.transfer(transferAmount, target);
+        System.out.println("Transfer successful!");
+    }
+
+
+    public void performViewHistory() {
+        System.out.println("\n=== Transaction History ===");
+        userAccount.getTransactions().displayTransactions();
+        System.out.println();
     }
 
     public void run() {
