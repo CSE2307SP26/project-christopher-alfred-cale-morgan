@@ -32,7 +32,7 @@ public class BankAccount {
             this.balance -= amount;
             other.balance += amount;
             this.transactions.addTransaction(new Transaction(amount, "Transfer Out", "Sending " + amount));
-            other.transactions.addTransaction(new Transaction(amount, "Transfer To", "Recieving " + amount));
+            other.transactions.addTransaction(new Transaction(amount, "Transfer In", "Recieving " + amount));
 
         } else {
             throw new IllegalArgumentException();
