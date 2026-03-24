@@ -12,7 +12,7 @@ public class TransactionTest {
 
     @Test
     public void testTransactionAddedOnDeposit() {
-        BankAccount account = new BankAccount();
+        BankAccount account = new BankAccount(1);
     
         account.deposit(100);
     
@@ -21,7 +21,7 @@ public class TransactionTest {
 
     @Test
     public void testInvalidDeposit() {
-        BankAccount testAccount = new BankAccount();
+        BankAccount testAccount = new BankAccount(1);
         try {
             testAccount.deposit(-50);
             fail();
@@ -32,7 +32,7 @@ public class TransactionTest {
 
     @Test
     public void testTransactionDetails() {
-        BankAccount account = new BankAccount();
+        BankAccount account = new BankAccount(1);
 
         account.deposit(75);
 
@@ -45,7 +45,7 @@ public class TransactionTest {
 
     @Test
     public void testMultipleTransactions() {
-        BankAccount account = new BankAccount();
+        BankAccount account = new BankAccount(1);
 
         account.deposit(50);
         account.deposit(25);
@@ -55,7 +55,7 @@ public class TransactionTest {
 
     @Test
     public void testNoTransactionOnInvalidDeposit() {
-        BankAccount account = new BankAccount();
+        BankAccount account = new BankAccount(1);
 
         try {
             account.deposit(-10);
