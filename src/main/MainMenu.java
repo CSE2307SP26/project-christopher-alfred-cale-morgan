@@ -1,6 +1,8 @@
 package main;
 
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainMenu {
 
@@ -17,7 +19,7 @@ public class MainMenu {
         this.keyboardInput = new Scanner(System.in);
     }
 
-    public void displayOptions() {
+    public void displayOptions() { //TODO: We need to add the Create Account here
         System.out.println("Welcome to the 237 Bank App!");
         
         System.out.println("1. Make a deposit");
@@ -62,6 +64,19 @@ public class MainMenu {
         System.out.println("Successfully Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
     }
+
+    public void addAccount() {
+        BankAccount newAccount = new BankAccount();
+        this.userAccounts.add(newAccount);
+    }
+
+    public int getNumAccounts() {
+        return this.userAccounts.size();
+    }
+
+    /*TODO
+    Add a method to switch user accounts
+    Update Main Menu options to include changing accounts */
 
 
     public void performTransfer() {
