@@ -1,8 +1,10 @@
 package test;
 
 import main.BankAccount;
+import main.MainMenu;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
@@ -26,4 +28,20 @@ public class BankAccountTest {
             //do nothing, test passes
         }
     }
+
+    @Test
+    public void testNewAccount() {
+        MainMenu testApp = new MainMenu();
+        testApp.addAccount();
+        assertEquals(2, testApp.getNumAccounts());
+    }
+
+    @Test
+    public void testNewAdmin() { //Test the method to gain admin access
+        BankAccount testAccount = new BankAccount();
+        testAccount.setAdminStatus();
+        assertTrue(testAccount.getAdminStatus());
+    }
+ 
+
 }

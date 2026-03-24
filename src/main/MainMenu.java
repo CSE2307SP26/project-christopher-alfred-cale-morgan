@@ -1,17 +1,23 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 2;
-	private static final int MAX_SELECTION = 2;
+    private static final int EXIT_SELECTION = 3;
+	private static final int MAX_SELECTION = 3;
 
-	private BankAccount userAccount;
+    private List<BankAccount> userAccounts;
+    private BankAccount userAccount;
     private Scanner keyboardInput;
 
     public MainMenu() {
+        this.userAccounts = new ArrayList<>();
         this.userAccount = new BankAccount();
+        userAccounts.add(userAccount);
         this.keyboardInput = new Scanner(System.in);
     }
 
@@ -19,7 +25,8 @@ public class MainMenu {
         System.out.println("Welcome to the 237 Bank App!");
         
         System.out.println("1. Make a deposit");
-        System.out.println("2. Exit the app");
+        System.out.println("2. Gain Admin");
+        System.out.println("3. Exit the app");
 
     }
 
@@ -36,6 +43,9 @@ public class MainMenu {
         switch (selection) {
             case 1:
                 performDeposit();
+            case 2:
+                gainAdmin();
+
         }
     }
 
@@ -46,6 +56,28 @@ public class MainMenu {
             depositAmount = keyboardInput.nextInt();
         }
         userAccount.deposit(depositAmount);
+    }
+
+
+    public void addAccount() {
+        BankAccount newAccount = new BankAccount();
+        this.userAccounts.add(newAccount);
+    }
+
+    public int getNumAccounts() {
+        return this.userAccounts.size();
+    }
+
+    /*
+    TODO
+    Add a method to switch user accounts
+    Update Main Menu options to include changing accounts 
+    */
+
+
+    public int gainAdmin() { //gain access to admin status for collecting fees...TODO:Add password
+        this.userAccount.setAdminStatus();
+        return 0;
     }
 
     public void run() {
