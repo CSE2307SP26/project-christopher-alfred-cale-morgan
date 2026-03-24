@@ -66,12 +66,11 @@ public class MainMenu {
     }
 
     public void addAccount() {
-        BankAccount newAccount = new BankAccount();
-        this.userAccounts.add(newAccount);
+        BankAccount newAccount = new BankAccount(1);
+    //TODO this.userAccounts.add(newAccount); We'll need a way to track which accounts are owned by who?    }
     }
-
-    public int getNumAccounts() {
-        return this.userAccounts.size();
+    public int getNumAccounts() { //TODO: Fix this one
+        return 1; //this.userAccounts.size();
     }
 
     /*TODO
