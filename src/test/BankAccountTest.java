@@ -11,7 +11,18 @@ import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
 
-
+    @Test
+    public void testCheckBalance() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        assertEquals(0.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).deposit(50);
+        assertEquals(50.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).withdraw(25);
+        assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).withdraw(25);
+        assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
 
     @Test
     public void testDeposit() {
