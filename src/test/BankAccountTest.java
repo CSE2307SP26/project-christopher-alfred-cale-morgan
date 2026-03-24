@@ -13,14 +13,14 @@ public class BankAccountTest {
 
     @Test
     public void testDeposit() {
-        BankAccount testAccount = new BankAccount();
+        BankAccount testAccount = new BankAccount(1);
         testAccount.deposit(50);
         assertEquals(50, testAccount.getBalance(), 0.01);
     }
 
     @Test
     public void testInvalidDeposit() {
-        BankAccount testAccount = new BankAccount();
+        BankAccount testAccount = new BankAccount(1);
         try {
             testAccount.deposit(-50);
             fail();
@@ -38,10 +38,23 @@ public class BankAccountTest {
 
     @Test
     public void testNewAdmin() { //Test the method to gain admin access
-        BankAccount testAccount = new BankAccount();
+        BankAccount testAccount = new BankAccount(1);
         testAccount.setAdminStatus();
         assertTrue(testAccount.getAdminStatus());
     }
  
+
+    @Test
+    public void takeFeesSuccess() {
+
+        BankAccount testAccount = new BankAccount(1);
+        testAccount.setAdminStatus();
+        testAccount.deposit(100);
+        testAccount.addFees(50);
+        testAccount.payFee();
+        assertEquals(50, testAccount.getBalance(), 0.01);        
+    }
+
+    
 
 }

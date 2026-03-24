@@ -16,7 +16,7 @@ public class MainMenu {
 
     public MainMenu() {
         this.userAccounts = new ArrayList<>();
-        this.userAccount = new BankAccount();
+        this.userAccount = new BankAccount(0);
         userAccounts.add(userAccount);
         this.keyboardInput = new Scanner(System.in);
     }
@@ -60,12 +60,18 @@ public class MainMenu {
 
 
     public void addAccount() {
-        BankAccount newAccount = new BankAccount();
+        BankAccount newAccount = new BankAccount(0);
         this.userAccounts.add(newAccount);
     }
 
     public int getNumAccounts() {
         return this.userAccounts.size();
+    }
+
+    public void collectFee(int id) {
+        if (userAccount.getAdminStatus()) {
+            //TODO: Collect Fees from a specific number
+        }
     }
 
     /*

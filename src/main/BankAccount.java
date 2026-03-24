@@ -4,13 +4,21 @@ public class BankAccount {
 
 
     private double balance;
+    private double accountFees;
     private Boolean isAdmin;
-    //need to ID implementation...
+    private int id;
 
-    public BankAccount() {
+
+    public BankAccount(int id) {
         this.balance = 0;
+        this.accountFees = 0;
         this.isAdmin = false;
+        this.id = id;
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void deposit(double amount) {
@@ -19,6 +27,18 @@ public class BankAccount {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    public void payFee() {
+
+        if (this.balance >= this.accountFees) {
+            this.balance -= this.accountFees;
+            System.out.print("User " + this.id + " will pay: $" + this.accountFees);
+            this.accountFees = 0;
+        } else {
+            throw new IllegalCallerException("Accout has insufficient funds to pay fees");
+        }
+
     }
 
     public void setAdminStatus(){ //TODO: be able to set admin false
@@ -35,5 +55,13 @@ public class BankAccount {
 
     public double getBalance() {
         return this.balance;
+    }
+
+    public void addFees(double addedFee) {
+        this.accountFees += addedFee;
+    }   
+
+    public double getFees() {
+        return this.accountFees;
     }
 }
