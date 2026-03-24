@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 4; //These should likely remain equal but I kept them seperate
-	private static final int MAX_SELECTION = 4; //Set to the final number. Increase if you modify displayOptions().
+    private static final int EXIT_SELECTION = 5; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 5; //Set to the final number. Increase if you modify displayOptions().
 
     private BankAccounts bankAccounts;
 	private BankAccount userAccount;
@@ -23,10 +23,10 @@ public class MainMenu {
         System.out.println("Welcome to the 237 Bank App!");
         
         System.out.println("1. Make a deposit");
-        System.out.println("2. Make a transfer");
-        System.out.println("3. View your history");
-        System.out.println("4. Exit the app");
-
+        System.out.println("2. Make a withdrawal");
+        System.out.println("3. Make a transfer");
+        System.out.println("4. View your history");
+        System.out.println("5. Exit the app");
     }
 
     public int getUserSelection(int max) {
@@ -44,12 +44,15 @@ public class MainMenu {
                 performDeposit();
                 break;
             case 2:
-                performTransfer();
+                performWithdrawal();
                 break;
             case 3:
+                performTransfer();
+                break;
+            case 4:
                 performViewHistory();
                 break;
-            case 4: //Leave exit at the bottom
+            case 5: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
@@ -63,6 +66,16 @@ public class MainMenu {
         }
         System.out.println("Successfully Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
+    }
+
+    public void performWithdrawal() {
+        double withdrawAmount = -1;
+        while(withdrawAmount < 0) {
+            System.out.print("How much would you like to withdraw: ");
+            withdrawAmount = keyboardInput.nextInt();
+        }
+        userAccount.withdraw(withdrawAmount);
+        System.out.println("Successfully Withdrew " + withdrawAmount);
     }
 
     public void addAccount() {

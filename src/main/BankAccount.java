@@ -36,6 +36,18 @@ public class BankAccount {
         }
     }
 
+    public void withdraw(double amount) {
+        if(amount < 0.0f)
+            throw new IllegalArgumentException("Withdrawal must be positive");
+        if((this.balance - amount) < 0.0f)
+            throw new IllegalArgumentException("Not enough funds");
+
+        this.balance -= amount;
+        transactions.addTransaction(
+                new Transaction(amount, "Withdrawal", "Withdrawing " + amount)
+            );
+    }
+
     public void transfer(double amount, BankAccount other) {
         if (other == null) {
             throw new IllegalArgumentException("Target account does not exist");
