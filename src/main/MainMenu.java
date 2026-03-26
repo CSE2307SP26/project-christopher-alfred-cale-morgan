@@ -23,7 +23,7 @@ public class MainMenu {
         System.out.println("Welcome to the 237 Bank App!");
 		System.out.println("1. View account balance");
         System.out.println("2. Make a deposit");
-		System.out.println("3. Make a Withdrawl");
+		System.out.println("3. Make a Withdrawal");
         System.out.println("4. Make a transfer");
         System.out.println("5. View your history");
         System.out.println("6. View your fees");
