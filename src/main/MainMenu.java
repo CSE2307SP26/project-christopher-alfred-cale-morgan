@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 10; //These should likely remain equal but I kept them seperate
-	private static final int MAX_SELECTION = 10; //Set to the final number. Increase if you modify displayOptions().
+    private static final int EXIT_SELECTION = 12; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 12; //Set to the final number. Increase if you modify displayOptions().
 
 	
     private BankAccounts bankAccounts;
@@ -21,16 +21,18 @@ public class MainMenu {
 
     public void displayOptions() { //TODO: We need to add the Create Account here
         System.out.println("Welcome to the 237 Bank App!");
-        System.out.println("1. Make a deposit");
-        System.out.println("2. Make a transfer");
-        System.out.println("3. View your history");
-        System.out.println("4. View your fees");
-        System.out.println("5. Gain Admin Access");
-        System.out.println("6. Collect Fees (Admin)");
-        System.out.println("7. Create Fees (Admin)");
-        System.out.println("8. View All Fees (Admin)"); //TODO:
-        System.out.println("9. Add interest payment (Admin)"); //TODO: just gonna start with every account with same interest rate...
-        System.out.println("10. Exit the app");
+		System.out.println("1. View account balance");
+        System.out.println("2. Make a deposit");
+		System.out.println("3. Make a Withdrawl");
+        System.out.println("4. Make a transfer");
+        System.out.println("5. View your history");
+        System.out.println("6. View your fees");
+        System.out.println("7. Gain Admin Access");
+        System.out.println("8. Collect Fees (Admin)");
+        System.out.println("9. Create Fees (Admin)");
+        System.out.println("10. View All Fees (Admin)"); //TODO:
+        System.out.println("11. Add interest payment (Admin)"); //TODO: just gonna start with every account with same interest rate...
+        System.out.println("12. Exit the app");
 
     }
 
@@ -61,23 +63,23 @@ public class MainMenu {
             case 5:
                 performViewHistory();
                 break;
-            case 4:
+            case 6:
                 viewPersonalFees();
                 break;
-            case 5:
+            case 7:
                 gainAdmin();
                 break;
-            case 6:
+            case 8:
                 collectFees();
                 break;
-            case 7:
+            case 9:
                 createFees();
                 break;
-            case 9:
+            case 11:
                 addInterestPayment();
                 break;
 
-            case 10: //Leave exit at the bottom
+            case 12: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
