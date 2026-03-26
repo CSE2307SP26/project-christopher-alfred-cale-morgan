@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 #put commands here to compile and run your app from command line
 
@@ -17,5 +17,4 @@ javac -d bin src/main/*.java
 
 echo "Running app..."
 
-# Run your main class (change Main if needed)
 java -cp bin main.MainMenu
