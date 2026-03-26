@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 5; //These should likely remain equal but I kept them seperate
-	private static final int MAX_SELECTION = 5; //Set to the final number. Increase if you modify displayOptions().
+    private static final int EXIT_SELECTION = 6; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 6; //Set to the final number. Increase if you modify displayOptions().
 
     private BankAccounts bankAccounts;
 	private BankAccount userAccount;
@@ -22,11 +22,12 @@ public class MainMenu {
     public void displayOptions() { //TODO: We need to add the Create Account here
         System.out.println("Welcome to the 237 Bank App!");
         
-        System.out.println("1. Make a deposit");
-        System.out.println("2. Make a withdrawal");
-        System.out.println("3. Make a transfer");
-        System.out.println("4. View your history");
-        System.out.println("5. Exit the app");
+        System.out.println("1. View balance");
+        System.out.println("2. Make a deposit");
+        System.out.println("3. Make a withdrawal");
+        System.out.println("4. Make a transfer");
+        System.out.println("5. View your history");
+        System.out.println("6. Exit the app");
     }
 
     public int getUserSelection(int max) {
@@ -41,21 +42,29 @@ public class MainMenu {
     public void processInput(int selection) { //Basically if statement, add cases for each new thing we add
         switch (selection) {
             case 1:
-                performDeposit();
+                performViewBalance();
                 break;
             case 2:
-                performWithdrawal();
+                performDeposit();
                 break;
             case 3:
-                performTransfer();
+                performWithdrawal();
                 break;
             case 4:
+                performTransfer();
+                break;
+            case 5:
                 performViewHistory();
                 break;
-            case 5: //Leave exit at the bottom
+            case 6: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
+    }
+
+    public void performViewBalance() {
+        if (userAccount == null) throw new IllegalStateException("No user logged in");
+        System.out.println("Current balance: " + userAccount.getBalance());
     }
 
     public void performDeposit() {
