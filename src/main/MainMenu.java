@@ -1,14 +1,14 @@
 package main;
 
-import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 6; //These should likely remain equal but I kept them seperate
-	private static final int MAX_SELECTION = 6; //Set to the final number. Increase if you modify displayOptions().
+    private static final int EXIT_SELECTION = 12; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 12; //Set to the final number. Increase if you modify displayOptions().
 
+	
     private BankAccounts bankAccounts;
 	private BankAccount userAccount;
     private Scanner keyboardInput;
@@ -21,14 +21,21 @@ public class MainMenu {
 
     public void displayOptions() { //TODO: We need to add the Create Account here
         System.out.println("Welcome to the 237 Bank App!");
-        
-        System.out.println("1. View balance");
+		System.out.println("1. View account balance");
         System.out.println("2. Make a deposit");
-        System.out.println("3. Make a withdrawal");
+		System.out.println("3. Make a Withdrawal");
         System.out.println("4. Make a transfer");
         System.out.println("5. View your history");
-        System.out.println("6. Exit the app");
+        System.out.println("6. View your fees");
+        System.out.println("7. Gain Admin Access");
+        System.out.println("8. Collect Fees (Admin)");
+        System.out.println("9. Create Fees (Admin)");
+        System.out.println("10. View All Fees (Admin)"); //TODO:
+        System.out.println("11. Add interest payment (Admin)"); //TODO: just gonna start with every account with same interest rate...
+        System.out.println("12. Exit the app");
+
     }
+
 
     public int getUserSelection(int max) {
         int selection = -1;
@@ -56,7 +63,23 @@ public class MainMenu {
             case 5:
                 performViewHistory();
                 break;
-            case 6: //Leave exit at the bottom
+            case 6:
+                viewPersonalFees();
+                break;
+            case 7:
+                gainAdmin();
+                break;
+            case 8:
+                collectFees();
+                break;
+            case 9:
+                createFees();
+                break;
+            case 11:
+                addInterestPayment();
+                break;
+
+            case 12: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
@@ -88,7 +111,7 @@ public class MainMenu {
     }
 
     public void addAccount() {
-        BankAccount newAccount = new BankAccount(1);
+        BankAccount newAccount = bankAccounts.createAccount();
     //TODO this.userAccounts.add(newAccount); We'll need a way to track which accounts are owned by who?    }
     }
     public int getNumAccounts() { //TODO: Fix this one
@@ -125,10 +148,103 @@ public class MainMenu {
 
 
     public void performViewHistory() {
-        System.out.println("\n=== Transaction History ===");
         userAccount.getTransactions().displayTransactions();
         System.out.println();
     }
+
+
+
+
+    /*
+    TODO
+    Add a method to switch user accounts
+    Update Main Menu options to include changing accounts 
+    */
+
+
+
+    /*
+    TODO
+    Add a method to switch user accounts
+    Update Main Menu options to include changing accounts 
+    */
+
+
+    public void gainAdmin() { //gain access to admin status for collecting fees...TODO:Add password
+        this.userAccount.setAdminStatus();
+    }
+
+    public void collectFees() {
+
+        if(userAccount.getAdminStatus()) {
+            int otherId;
+            System.out.print("Enter account ID to collect from: ");
+            otherId = keyboardInput.nextInt();
+            BankAccount target = bankAccounts.getAccount(otherId);
+            
+            if (target == null) {
+                System.out.println("Account not found.");
+                return;
+            }
+
+            target.payFee();
+        } else {
+            throw new IllegalCallerException("Account does not have admin status.");
+        }
+    }
+
+    public void createFees() {
+
+        if(userAccount.getAdminStatus()) {
+            int otherId;
+            System.out.print("Enter account ID to add fees to: ");
+            otherId = keyboardInput.nextInt();
+            BankAccount target = bankAccounts.getAccount(otherId);
+            
+            if (target == null) {
+                System.out.println("Account not found.");
+                return;
+            }
+
+            double addedFee = -1;
+            while (addedFee <= 0) {
+                System.out.print("How much would you like to add to their fees: ");
+                addedFee = keyboardInput.nextDouble();
+            }
+
+            target.addFees(addedFee);
+            
+        } else {
+            throw new IllegalCallerException("Account does not have admin status.");
+        }
+    }
+
+
+    public void addInterestPayment() {
+
+        if(userAccount.getAdminStatus()) {
+            int otherId;
+            System.out.print("Enter account ID to collect from: ");
+            otherId = keyboardInput.nextInt();
+            BankAccount target = bankAccounts.getAccount(otherId);
+            
+            if (target == null) {
+                System.out.println("Account not found.");
+                return;
+            }
+
+            target.payInterest();
+        } else {
+            throw new IllegalCallerException("Account does not have admin status.");
+        }
+    }
+
+    public void viewPersonalFees() {
+        System.out.println("\n Fees for User: " + userAccount.getId() +", -->" + userAccount.getFees());
+        System.out.println();
+    }
+
+    
 
     public void run() {
         int selection = -1;
