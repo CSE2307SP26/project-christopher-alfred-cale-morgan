@@ -5,7 +5,9 @@ import main.BankAccounts;
 import main.MainMenu;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,4 +118,60 @@ public class BankAccountTest {
             //do nothing, test passes
         }
     }
+
+    @Test
+    public void testNewAccount() {
+        MainMenu testApp = new MainMenu();
+        testApp.addAccount();
+        assertEquals(2, testApp.getNumAccounts());
+    }
+
+    @Test
+    public void testNewAdmin() { //Test the method to gain admin access
+        BankAccount testAccount = new BankAccount(1);
+        testAccount.setAdminStatus();
+        assertTrue(testAccount.getAdminStatus());
+    }
+ 
+
+
+    @Test
+    public void takeFeesSuccess() {
+
+        BankAccount testAccount = new BankAccount(1);
+        testAccount.setAdminStatus();
+        testAccount.deposit(100);
+        testAccount.addFees(50);
+        testAccount.payFee();
+        assertEquals(50, testAccount.getBalance(), 0.01);        
+    }
+
+    @Test
+    public void addInterestPayment() {
+
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        allAccounts.getAccount(1).deposit(100);
+        allAccounts.getAccount(1).payInterest();
+        assertEquals(102.39, allAccounts.getAccount(1).getBalance(), 0.01);
+       
+    }
+
+    @Test
+    public void addInterestPaymentFail() {
+
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        try {
+            allAccounts.getAccount(1).payInterest();
+            fail();
+        } catch (IllegalArgumentException e) {
+            // pass test
+        }
+        
+       
+    }
+
+    
+
 }
