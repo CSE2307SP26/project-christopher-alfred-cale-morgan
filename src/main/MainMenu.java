@@ -79,8 +79,8 @@ public class MainMenu {
     }
 
     public void addAccount() {
-        BankAccount newAccount = new BankAccount(1);
-    //TODO this.userAccounts.add(newAccount); We'll need a way to track which accounts are owned by who?    }
+        BankAccount newAccount = new BankAccount();
+        this.userAccounts.add(newAccount);
     }
     public int getNumAccounts() { //TODO: Fix this one
         return 1; //this.userAccounts.size();
@@ -89,6 +89,27 @@ public class MainMenu {
     /*TODO
     Add a method to switch user accounts
     Update Main Menu options to include changing accounts */
+
+    public void closeAccount(int index){
+        int numAccounts = this.userAccounts.size();
+        BankAccount accountToDelete;
+        if(index < numAccounts && numAccounts > 1){
+            accountToDelete = this.userAccounts.get(index);
+        } else{
+            throw new IllegalArgumentException();
+        }
+        
+        if(this.userAccount.equals(accountToDelete)){
+            System.out.println("This is the current account. Type 'Y' to confirm");
+            String userInput = this.keyboardInput.nextLine();
+            if(userInput.equals("Y")){
+                this.userAccounts.remove(accountToDelete);
+                this.userAccount = this.userAccounts.get(0);
+            }else{
+                return;
+            }
+        }
+        this.userAccounts.remove(accountToDelete);
 
 
     public void performTransfer() {
