@@ -1,6 +1,13 @@
 # Compiled class file
 *.class
 
+# Java artifacts
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+
 # Log file
 *.log
 
