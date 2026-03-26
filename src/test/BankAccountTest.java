@@ -13,7 +13,18 @@ import org.junit.jupiter.api.Test;
 
 public class BankAccountTest {
 
-
+    @Test
+    public void testCheckBalance() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        assertEquals(0.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).deposit(50);
+        assertEquals(50.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).withdraw(25);
+        assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        allAccounts.getAccount(1).withdraw(25);
+        assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
 
     @Test
     public void testDeposit() {
@@ -35,7 +46,50 @@ public class BankAccountTest {
         }
     }
 
-    
+    @Test
+    public void testWithdrawal() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+
+        allAccounts.getAccount(1).deposit(100);
+        allAccounts.getAccount(1).withdraw(50);
+        assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
+    @Test
+    public void testTooBigWithdrawal() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+
+        allAccounts.getAccount(1).deposit(50);
+        try {
+            allAccounts.getAccount(1).withdraw(100);
+            fail();
+        } catch(Exception e) {
+            // do nothing, test passes so far
+        }
+
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(100, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
+    @Test
+    public void testNegativeWithdrawal() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+
+        allAccounts.getAccount(1).deposit(50);
+        try {
+            allAccounts.getAccount(1).withdraw(-10);
+            fail();
+        } catch(Exception e) {
+            // do nothing, test passes so far
+        }
+
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
     @Test
     public void testTransfer() {
         BankAccounts allAccounts = new BankAccounts();

@@ -47,12 +47,18 @@ public class MainMenu {
     public void processInput(int selection) { //Basically if statement, add cases for each new thing we add
         switch (selection) {
             case 1:
-                performDeposit();
+                performViewBalance();
                 break;
             case 2:
-                performTransfer();
+                performDeposit();
                 break;
             case 3:
+                performWithdrawal();
+                break;
+            case 4:
+                performTransfer();
+                break;
+            case 5:
                 performViewHistory();
                 break;
             case 4:
@@ -77,6 +83,11 @@ public class MainMenu {
         }
     }
 
+    public void performViewBalance() {
+        if (userAccount == null) throw new IllegalStateException("No user logged in");
+        System.out.println("Current balance: " + userAccount.getBalance());
+    }
+
     public void performDeposit() {
         double depositAmount = -1;
         while(depositAmount < 0) {
@@ -85,6 +96,16 @@ public class MainMenu {
         }
         System.out.println("Successfully Deposited" + depositAmount);
         userAccount.deposit(depositAmount);
+    }
+
+    public void performWithdrawal() {
+        double withdrawAmount = -1;
+        while(withdrawAmount < 0) {
+            System.out.print("How much would you like to withdraw: ");
+            withdrawAmount = keyboardInput.nextInt();
+        }
+        userAccount.withdraw(withdrawAmount);
+        System.out.println("Successfully Withdrew " + withdrawAmount);
     }
 
     public void addAccount() {
