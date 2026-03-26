@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    private static final int EXIT_SELECTION = 9; //These should likely remain equal but I kept them seperate
-	private static final int MAX_SELECTION = 9; //Set to the final number. Increase if you modify displayOptions().
+    private static final int EXIT_SELECTION = 10; //These should likely remain equal but I kept them seperate
+	private static final int MAX_SELECTION = 10; //Set to the final number. Increase if you modify displayOptions().
 
 	
     private BankAccounts bankAccounts;
@@ -29,7 +29,8 @@ public class MainMenu {
         System.out.println("6. Collect Fees (Admin)");
         System.out.println("7. Create Fees (Admin)");
         System.out.println("8. View All Fees (Admin)"); //TODO:
-        System.out.println("9. Exit the app");
+        System.out.println("9. Add interest payment (Admin)"); //TODO: just gonna start with every account with same interest rate...
+        System.out.println("10. Exit the app");
 
     }
 
@@ -66,8 +67,11 @@ public class MainMenu {
             case 7:
                 createFees();
                 break;
+            case 9:
+                addInterestPayment();
+                break;
 
-            case 9: //Leave exit at the bottom
+            case 10: //Leave exit at the bottom
                 System.out.println("Exiting!");
                 break;
         }
@@ -187,6 +191,26 @@ public class MainMenu {
 
             target.addFees(addedFee);
             
+        } else {
+            throw new IllegalCallerException("Account does not have admin status.");
+        }
+    }
+
+
+    public void addInterestPayment() {
+
+        if(userAccount.getAdminStatus()) {
+            int otherId;
+            System.out.print("Enter account ID to collect from: ");
+            otherId = keyboardInput.nextInt();
+            BankAccount target = bankAccounts.getAccount(otherId);
+            
+            if (target == null) {
+                System.out.println("Account not found.");
+                return;
+            }
+
+            target.payInterest();
         } else {
             throw new IllegalCallerException("Account does not have admin status.");
         }

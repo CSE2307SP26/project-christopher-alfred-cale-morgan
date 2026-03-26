@@ -8,21 +8,50 @@ public class BankAccount {
     private Boolean isAdmin;
     private int id;
     private Transactions transactions;
+    private double interestRate;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
     public BankAccount(int id) {
         this.id = id;
         this.balance = 0;
+        this.isAdmin = false;
+        this.interestRate = 2.39;
         this.transactions = new Transactions();
     }
 
+
+    public double getInterestRate() {
+        return this.interestRate;
+    }
+
+    public void setInterestRate(double newRate) {
+        this.interestRate = newRate;
+    }
+
+    public void payInterest() {
+        
+        double percentage;
+
+        if(this.balance != 0) {
+            percentage = (this.interestRate/100)*(this.balance);
+            balance += percentage;
+            transactions.addTransaction(
+                new Transaction(percentage, "Deposit of interest", "Depositing " + percentage)
+            );
+        } else {
+            throw new IllegalArgumentException("Account must have a balance");
+        }
+        
+
+    }
+
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public Transactions getTransactions() {

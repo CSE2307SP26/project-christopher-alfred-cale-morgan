@@ -92,7 +92,31 @@ public class BankAccountTest {
         assertEquals(50, testAccount.getBalance(), 0.01);        
     }
 
+    @Test
+    public void addInterestPayment() {
 
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        allAccounts.getAccount(1).deposit(100);
+        allAccounts.getAccount(1).payInterest();
+        assertEquals(102.39, allAccounts.getAccount(1).getBalance(), 0.01);
+       
+    }
+
+    @Test
+    public void addInterestPaymentFail() {
+
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        try {
+            allAccounts.getAccount(1).payInterest();
+            fail();
+        } catch (IllegalArgumentException e) {
+            // pass test
+        }
+        
+       
+    }
 
     
 
