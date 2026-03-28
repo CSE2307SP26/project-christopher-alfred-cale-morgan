@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#put commands here to compile and run your app from command line
-
-#put commands here to compile and run your app from command line
-
 # Stop on error
 set -e
 
@@ -13,7 +9,7 @@ echo "Compiling..."
 mkdir -p bin
 
 # Compile all Java files
-javac -d bin src/main/*.java
+javac -d bin src/main/*.java src/main/MenuOptions/*.java
 
 echo "Running app..."
 

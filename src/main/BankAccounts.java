@@ -23,4 +23,5 @@ public class BankAccounts {
     public BankAccount getAccount(int id) {
         return accounts.get(id);
     }
+    public int getNumAccounts() { return accounts.size(); }
 }
