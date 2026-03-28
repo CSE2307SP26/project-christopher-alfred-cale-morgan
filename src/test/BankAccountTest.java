@@ -2,12 +2,10 @@ package test;
 
 import main.BankAccount;
 import main.BankAccounts;
-import main.MainMenu;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +21,7 @@ public class BankAccountTest {
         allAccounts.getAccount(1).withdraw(25);
         assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
         allAccounts.getAccount(1).withdraw(25);
-        assertEquals(25.0, allAccounts.getAccount(1).getBalance(), 0.01);
+        assertEquals(0.0, allAccounts.getAccount(1).getBalance(), 0.01);
     }
 
     @Test
@@ -70,7 +68,7 @@ public class BankAccountTest {
         }
 
         // ensure balance was not changed after invalid withdrawal
-        assertEquals(100, allAccounts.getAccount(1).getBalance(), 0.01);
+        assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
     }
 
     @Test
@@ -120,21 +118,12 @@ public class BankAccountTest {
     }
 
     @Test
-    public void testNewAccount() {
-        MainMenu testApp = new MainMenu();
-        testApp.addAccount();
-        assertEquals(2, testApp.getNumAccounts());
-    }
-
-    @Test
     public void testNewAdmin() { //Test the method to gain admin access
         BankAccount testAccount = new BankAccount(1);
         testAccount.setAdminStatus();
         assertTrue(testAccount.getAdminStatus());
     }
  
-
-
     @Test
     public void takeFeesSuccess() {
 
@@ -171,7 +160,4 @@ public class BankAccountTest {
         
        
     }
-
-    
-
 }

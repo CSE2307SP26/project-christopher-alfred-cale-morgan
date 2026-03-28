@@ -6,8 +6,8 @@ import java.util.Scanner;
 import main.MenuOptions.*;
 
 public class MainMenu {
-    private static AppContext appContext;
-    private static List<IMenuOption> options;
+    private AppContext appContext;
+    private List<IMenuOption> options;
 
     public MainMenu() {
         appContext = new AppContext();
@@ -85,6 +85,14 @@ public class MainMenu {
             selection = getUserSelection();
             processInput(selection);
         }
+    }
+
+    public AppContext getAppContext() {
+        return appContext;
+    }
+
+    public List<IMenuOption> getMenuOptions() {
+        return options;
     }
 
     public static void main(String[] args) {
