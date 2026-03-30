@@ -7,7 +7,8 @@ public class WithdrawOption implements IMenuOption {
         return "Make a withdrawal";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         double withdrawAmount = -1;
         while(withdrawAmount < 0) {
             System.out.print("How much would you like to withdraw: ");

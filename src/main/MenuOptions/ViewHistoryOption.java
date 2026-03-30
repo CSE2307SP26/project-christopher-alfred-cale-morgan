@@ -7,7 +7,8 @@ public class ViewHistoryOption implements IMenuOption {
         return "View account history";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         ctx.userAccount.getTransactions().displayTransactions();
         System.out.println();
     }

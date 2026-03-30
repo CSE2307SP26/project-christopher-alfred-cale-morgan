@@ -79,21 +79,22 @@ public class BankAccount {
             );
             this.accountFees = 0;
         } else {
-            throw new IllegalCallerException("Accout has insufficient funds to pay fees");
+            throw new IllegalCallerException("Account has insufficient funds to pay fees");
         }
 
     }
 
-    public void setAdminStatus(){ //TODO: be able to set admin false
-        this.isAdmin = true;
-        System.out.print("Admin Access Gained!\n");
+    public void setAdminStatus() {
+        this.isAdmin = !this.isAdmin;
+        if(this.isAdmin) {
+            System.out.print("Logged in with admin access!\n");
+        } else {
+            System.out.print("Logged out from admin access!\n");
+        }
     }
 
     public boolean getAdminStatus() {
-        if(!(this.isAdmin)) {
-            return false;
-        }
-        return true;
+        return this.isAdmin;
     }
 
 

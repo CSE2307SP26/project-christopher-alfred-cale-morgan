@@ -7,7 +7,8 @@ public class ViewPersonalFeesOption implements IMenuOption {
         return "View personal fees";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         System.out.println("\n Fees for User " + ctx.userAccount.getId() +": $" + ctx.userAccount.getFees());
         System.out.println();
     }

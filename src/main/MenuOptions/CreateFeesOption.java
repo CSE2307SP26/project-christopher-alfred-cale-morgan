@@ -8,7 +8,8 @@ public class CreateFeesOption implements IMenuOption {
         return "Create Fees (Admin)";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         if(ctx.userAccount.getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to add fees to: ");

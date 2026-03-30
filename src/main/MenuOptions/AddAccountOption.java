@@ -7,7 +7,8 @@ public class AddAccountOption implements IMenuOption {
         return "Add a new account";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         ctx.bankAccounts.createAccount();
         //TODO We'll need a way to track which accounts are owned by who?
     }

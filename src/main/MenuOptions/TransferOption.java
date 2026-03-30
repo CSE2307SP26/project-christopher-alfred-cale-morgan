@@ -8,7 +8,8 @@ public class TransferOption implements IMenuOption {
         return "Make a transfer";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         double transferAmount = -1;
         int otherId = -1;
 

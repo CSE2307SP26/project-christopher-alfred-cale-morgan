@@ -8,7 +8,9 @@ public class AddInterestPaymentOption implements IMenuOption {
         return "Add interest payment (Admin)";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
+
         if(ctx.userAccount.getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to collect from: ");

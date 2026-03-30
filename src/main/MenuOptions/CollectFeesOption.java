@@ -8,7 +8,8 @@ public class CollectFeesOption implements IMenuOption {
         return "Collect fees (Admin)";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         if (ctx.userAccount.getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to collect from: ");

@@ -4,12 +4,15 @@ import main.AppContext;
 
 public class GainAdminOption implements IMenuOption {
     public String getDisplayString() {
-        return "Gain admin access";
+        AppContext ctx = AppContext.getInstance();
+        return ctx.userAccount.getAdminStatus() ? "Logout from admin access" : "Login with admin access";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
         //gain access to admin status for collecting fees...
-        //TODO:Add password
+        //TODO: Add password
+        
+        AppContext ctx = AppContext.getInstance();
         ctx.userAccount.setAdminStatus();
     }
 }

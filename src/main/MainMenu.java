@@ -10,7 +10,7 @@ public class MainMenu {
     private List<IMenuOption> options;
 
     public MainMenu() {
-        appContext = new AppContext();
+        appContext = AppContext.getInstance();
 
         appContext.bankAccounts = new BankAccounts();
         appContext.userAccount = appContext.bankAccounts.createAccount(); // create user's account
@@ -27,6 +27,8 @@ public class MainMenu {
         options.add(new AddInterestPaymentOption());
         options.add(new CreateFeesOption());
         options.add(new CollectFeesOption());
+
+        // TODO: Add a MenuOption implementation to switch user accounts
     }
 
     public void displayOptions() {
@@ -53,30 +55,14 @@ public class MainMenu {
     public void processInput(int selection) {
         //Basically if statement, add cases for each new thing we add
         if (selection > 0 && selection < options.size())
-            options.get(selection - 1).execute(appContext);
+            options.get(selection - 1).execute();
         if(selection == options.size() + 1) //Leave exit at the end
                 System.out.println("Exiting!");
         }
 
-    public int getNumAccounts() { //TODO: Fix this one
-
-        return appContext.bankAccounts.getNumAccounts(); //this.userAccounts.size();
+    public int getNumAccounts() {
+        return appContext.bankAccounts.getNumAccounts();
     }
-    /*TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts */
-
-    /*
-    TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts 
-    */
-
-    /*
-    TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts 
-    */
 
     public void run() {
         int selection = -1;
