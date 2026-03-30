@@ -5,7 +5,7 @@ import main.AppContext;
 public class GainAdminOption implements IMenuOption {
     public String getDisplayString() {
         AppContext ctx = AppContext.getInstance();
-        return ctx.userAccount.getAdminStatus() ? "Logout from admin access" : "Login with admin access";
+        return ctx.getUserAccount().getAdminStatus() ? "Logout from admin access" : "Login with admin access";
     }
 
     public void execute() {
@@ -13,6 +13,6 @@ public class GainAdminOption implements IMenuOption {
         //TODO: Add password
         
         AppContext ctx = AppContext.getInstance();
-        ctx.userAccount.setAdminStatus();
+        ctx.getUserAccount().setAdminStatus();
     }
 }

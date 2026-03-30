@@ -13,8 +13,31 @@ public class AppContext {
         return instance;
     }
 
-    public BankAccounts bankAccounts;
-    public BankAccount userAccount;
-    public Scanner keyboardInput;
-    public double currentInput = 0;
+    private BankAccounts bankAccounts;
+    private BankAccount userAccount;
+    private Scanner keyboardInput;
+      
+    public Scanner getKeyboardInput() {
+        return keyboardInput;
+    }
+
+    public void setKeyboardInput(Scanner keyboardInput) {
+        this.keyboardInput = keyboardInput;
+    }
+
+    public BankAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(BankAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public BankAccounts getBankAccounts() {
+        return bankAccounts;
+    }
+
+    public void setBankAccounts(BankAccounts bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
 }

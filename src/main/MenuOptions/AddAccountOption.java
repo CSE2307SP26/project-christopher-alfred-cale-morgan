@@ -9,7 +9,7 @@ public class AddAccountOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        ctx.bankAccounts.createAccount();
+        ctx.getBankAccounts().createAccount();
         //TODO We'll need a way to track which accounts are owned by who?
     }
 }

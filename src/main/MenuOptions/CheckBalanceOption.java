@@ -10,7 +10,7 @@ public class CheckBalanceOption implements IMenuOption {
     public void execute() {
         AppContext ctx = AppContext.getInstance();
 
-        if (ctx.userAccount == null) throw new IllegalStateException("No user logged in");
-        System.out.println("Current balance: $" + ctx.userAccount.getBalance());
+        if (ctx.getUserAccount() == null) throw new IllegalStateException("No user logged in");
+        System.out.println("Current balance: $" + ctx.getUserAccount().getBalance());
     }
 }

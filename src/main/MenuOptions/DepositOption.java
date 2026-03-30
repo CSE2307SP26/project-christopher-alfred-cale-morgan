@@ -12,9 +12,9 @@ public class DepositOption implements IMenuOption {
         double depositAmount = -1;
         while(depositAmount < 0) {
             System.out.print("How much would you like to deposit: ");
-            depositAmount = ctx.keyboardInput.nextDouble();
+            depositAmount = ctx.getKeyboardInput().nextDouble();
         }
         System.out.println("Successfully Deposited $" + depositAmount);
-        ctx.userAccount.deposit(depositAmount);
+        ctx.getUserAccount().deposit(depositAmount);
     }
 }

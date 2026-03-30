@@ -10,11 +10,11 @@ public class CreateFeesOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        if(ctx.userAccount.getAdminStatus()) {
+        if(ctx.getUserAccount().getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to add fees to: ");
-            otherId = ctx.keyboardInput.nextInt();
-            BankAccount target = ctx.bankAccounts.getAccount(otherId);
+            otherId = ctx.getKeyboardInput().nextInt();
+            BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {
                 throw new IllegalArgumentException("Target account cannot be found.");
@@ -23,7 +23,7 @@ public class CreateFeesOption implements IMenuOption {
             double addedFee = -1;
             while (addedFee <= 0) {
                 System.out.print("How much would you like to add to their fees: ");
-                addedFee = ctx.keyboardInput.nextDouble();
+                addedFee = ctx.getKeyboardInput().nextDouble();
             }
 
             target.addFees(addedFee);

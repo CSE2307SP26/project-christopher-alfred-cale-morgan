@@ -10,11 +10,11 @@ public class CollectFeesOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        if (ctx.userAccount.getAdminStatus()) {
+        if (ctx.getUserAccount().getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to collect from: ");
-            otherId = ctx.keyboardInput.nextInt();
-            BankAccount target = ctx.bankAccounts.getAccount(otherId);
+            otherId = ctx.getKeyboardInput().nextInt();
+            BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {
                 throw new IllegalArgumentException("Target account cannot be found.");

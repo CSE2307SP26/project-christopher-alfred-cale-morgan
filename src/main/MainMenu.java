@@ -12,9 +12,9 @@ public class MainMenu {
     public MainMenu() {
         appContext = AppContext.getInstance();
 
-        appContext.bankAccounts = new BankAccounts();
-        appContext.userAccount = appContext.bankAccounts.createAccount(); // create user's account
-        appContext.keyboardInput = new Scanner(System.in);
+        appContext.setBankAccounts(new BankAccounts());
+        appContext.setUserAccount(appContext.getBankAccounts().createAccount()); // create user's account
+        appContext.setKeyboardInput(new Scanner(System.in));
 
         options = new ArrayList<>();
         options.add(new CheckBalanceOption());
@@ -46,9 +46,8 @@ public class MainMenu {
         int selection = -1;
         while(selection < 1 || selection > options.size() + 1) {
             System.out.print("Please make a selection: ");
-            selection = appContext.keyboardInput.nextInt();
+            selection = appContext.getKeyboardInput().nextInt();
         }
-        appContext.currentInput = selection;
         return selection;
     }
 
@@ -67,7 +66,7 @@ public class MainMenu {
         }
 
     public int getNumAccounts() {
-        return appContext.bankAccounts.getNumAccounts();
+        return appContext.getBankAccounts().getNumAccounts();
     }
 
     public void run() {

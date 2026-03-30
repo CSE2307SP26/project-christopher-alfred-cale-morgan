@@ -38,8 +38,8 @@ public class MainMenuTest {
         System.setOut(sysOut);
         System.setIn(sysIn);
 
-        if(ctx.keyboardInput != null) {
-            ctx.keyboardInput.close();
+        if(ctx.getKeyboardInput() != null) {
+            ctx.getKeyboardInput().close();
         }
     }
 
@@ -49,9 +49,9 @@ public class MainMenuTest {
     {
         AppContext ctx = menu.getAppContext();
         assertNotNull(ctx);
-        assertNotNull(ctx.bankAccounts);
-        assertNotNull(ctx.userAccount);
-        assertNotNull(ctx.keyboardInput);
+        assertNotNull(ctx.getBankAccounts());
+        assertNotNull(ctx.getUserAccount());
+        assertNotNull(ctx.getKeyboardInput());
 
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
@@ -78,18 +78,17 @@ public class MainMenuTest {
     @Test
     public void testGetUserSelectionNormal() {
         String testInput = "3\n";
-        ctx.keyboardInput = new Scanner(new ByteArrayInputStream(testInput.getBytes()));
+        ctx.setKeyboardInput(new Scanner(new ByteArrayInputStream(testInput.getBytes())));
 
         int selection = menu.getUserSelection();
         assertEquals(3, selection);
-        assertEquals(3.0, ctx.currentInput, 0.001);
     }
 
     @Test
     public void testGetUserSelectionOutOfBoundsThenValid() {
         // below, above, in bounds
         String testInput = "-1\n99\n5\n";
-        ctx.keyboardInput = new Scanner(new ByteArrayInputStream(testInput.getBytes()));
+        ctx.setKeyboardInput(new Scanner(new ByteArrayInputStream(testInput.getBytes())));
 
         int selection = menu.getUserSelection();
         assertEquals(5, selection);
