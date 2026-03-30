@@ -12,7 +12,7 @@ public class WithdrawOption implements IMenuOption {
         double withdrawAmount = -1;
         while(withdrawAmount < 0) {
             System.out.print("How much would you like to withdraw: ");
-            withdrawAmount = ctx.keyboardInput.nextInt();
+            withdrawAmount = ctx.keyboardInput.nextDouble();
         }
         ctx.userAccount.withdraw(withdrawAmount);
         System.out.println("Successfully Withdrew $" + withdrawAmount);
