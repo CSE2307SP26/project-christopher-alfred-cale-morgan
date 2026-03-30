@@ -24,8 +24,7 @@ public class TransferOption implements IMenuOption {
         BankAccount target = ctx.bankAccounts.getAccount(otherId);
 
         if (target == null) {
-            System.out.println("Account not found.");
-            throw new IllegalArgumentException("Target account does not exist.");
+            throw new IllegalArgumentException("Target account cannot be found.");
         }
 
         ctx.userAccount.transfer(transferAmount, target);

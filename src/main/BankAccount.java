@@ -20,7 +20,6 @@ public class BankAccount {
         this.transactions = new Transactions();
     }
 
-
     public double getInterestRate() {
         return this.interestRate;
     }
@@ -42,8 +41,6 @@ public class BankAccount {
         } else {
             throw new IllegalArgumentException("Account must have a balance");
         }
-        
-
     }
 
     public int getId() {
@@ -69,9 +66,7 @@ public class BankAccount {
         }
     }
 
-
     public void payFee() {
-
         if (this.balance >= this.accountFees) {
             this.balance -= this.accountFees;
             this.transactions.addTransaction(
@@ -81,7 +76,6 @@ public class BankAccount {
         } else {
             throw new IllegalCallerException("Account has insufficient funds to pay fees");
         }
-
     }
 
     public void setAdminStatus() {
@@ -97,8 +91,6 @@ public class BankAccount {
         return this.isAdmin;
     }
 
-
-
     public void withdraw(double amount) {
         if(amount < 0.0f)
             throw new IllegalArgumentException("Withdrawal must be positive");
@@ -110,7 +102,6 @@ public class BankAccount {
                 new Transaction(amount, "Withdrawal", "Withdrawing " + amount)
             );
     }
-
 
     public void transfer(double amount, BankAccount other) {
         if (other == null) {
@@ -140,7 +131,6 @@ public class BankAccount {
                 "Received $" + amount + " from account " + this.getId())
         );
     }
-
 
     public void addFees(double addedFee) {
         this.accountFees += addedFee;
