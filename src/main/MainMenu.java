@@ -54,14 +54,14 @@ public class MainMenu {
 
     public void processInput(int selection) {
         //Basically if statement, add cases for each new thing we add
-        if (selection > 0 && selection < options.size()) {
+        if (selection > 0 && selection <= options.size()) {
             try {
                 options.get(selection - 1).execute();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-        
+
         if(selection == options.size() + 1) //Leave exit at the end
                 System.out.println("Exiting!");
         }
