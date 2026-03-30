@@ -63,7 +63,7 @@ public class BankAccountTest {
         try {
             allAccounts.getAccount(1).withdraw(100);
             fail();
-        } catch(Exception e) {
+        } catch(IllegalArgumentException e) {
             // do nothing, test passes so far
         }
 
@@ -80,7 +80,7 @@ public class BankAccountTest {
         try {
             allAccounts.getAccount(1).withdraw(-10);
             fail();
-        } catch(Exception e) {
+        } catch(IllegalArgumentException e) {
             // do nothing, test passes so far
         }
 
