@@ -29,7 +29,7 @@ public class CreateFeesOption implements IMenuOption {
 
             target.addFees(addedFee);
         } else {
-            throw new IllegalCallerException("Account does not have admin status.");
+            throw new UnsupportedOperationException("Account does not have admin status.");
         }
     }
 }

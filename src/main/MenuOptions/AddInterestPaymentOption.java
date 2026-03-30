@@ -24,7 +24,7 @@ public class AddInterestPaymentOption implements IMenuOption {
 
             target.payInterest();
         } else {
-            throw new IllegalCallerException("Account does not have admin status.");
+            throw new UnsupportedOperationException("Account does not have admin status.");
         }
     }
 }
