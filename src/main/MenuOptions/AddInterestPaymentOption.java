@@ -18,8 +18,7 @@ public class AddInterestPaymentOption implements IMenuOption {
             BankAccount target = ctx.bankAccounts.getAccount(otherId);
 
             if (target == null) {
-                System.out.println("Account not found.");
-                return;
+                throw new IllegalArgumentException("Target account cannot be found.");
             }
 
             target.payInterest();
