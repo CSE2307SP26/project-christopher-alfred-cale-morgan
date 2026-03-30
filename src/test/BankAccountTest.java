@@ -34,12 +34,9 @@ public class BankAccountTest {
     public void testInvalidDeposit() {
         BankAccounts allAccounts = new BankAccounts();
         allAccounts.createAccount();
-        try {
-        allAccounts.getAccount(1).deposit(-50);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing, test passes
-        }
+        assertThrows(IllegalArgumentException.class, 
+            () -> allAccounts.getAccount(1).deposit(-50)
+        );
     }
 
     @Test
@@ -58,13 +55,11 @@ public class BankAccountTest {
         allAccounts.createAccount();
 
         allAccounts.getAccount(1).deposit(50);
-        try {
-            allAccounts.getAccount(1).withdraw(100);
-            fail();
-        } catch(IllegalArgumentException e) {
-            // do nothing, test passes so far
-        }
-
+        
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).withdraw(100)
+        );
+        
         // ensure balance was not changed after invalid withdrawal
         assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
     }
@@ -75,13 +70,10 @@ public class BankAccountTest {
         allAccounts.createAccount();
 
         allAccounts.getAccount(1).deposit(50);
-        try {
-            allAccounts.getAccount(1).withdraw(-10);
-            fail();
-        } catch(IllegalArgumentException e) {
-            // do nothing, test passes so far
-        }
-
+        assertThrows(IllegalArgumentException.class, 
+            () -> allAccounts.getAccount(1).withdraw(-10)
+        );
+       
         // ensure balance was not changed after invalid withdrawal
         assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
     }
@@ -92,7 +84,6 @@ public class BankAccountTest {
 
         allAccounts.createAccount();
         allAccounts.createAccount();
-
 
         allAccounts.getAccount(1).deposit(50);
         allAccounts.getAccount(1).transfer(50,allAccounts.getAccount(2));
@@ -107,12 +98,11 @@ public class BankAccountTest {
         allAccounts.createAccount();
 
         allAccounts.getAccount(1).deposit(50);
-        try {
-            allAccounts.getAccount(1).transfer(100,allAccounts.getAccount(2));
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing, test passes
-        }
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1)
+                    .transfer(100, 
+                        allAccounts.getAccount(2))
+        );
     }
 
     @Test
@@ -124,7 +114,6 @@ public class BankAccountTest {
  
     @Test
     public void takeFeesSuccess() {
-
         BankAccount testAccount = new BankAccount(1);
         testAccount.setAdminStatus();
         testAccount.deposit(100);
@@ -135,27 +124,19 @@ public class BankAccountTest {
 
     @Test
     public void addInterestPayment() {
-
         BankAccounts allAccounts = new BankAccounts();
         allAccounts.createAccount();
         allAccounts.getAccount(1).deposit(100);
         allAccounts.getAccount(1).payInterest();
         assertEquals(102.39, allAccounts.getAccount(1).getBalance(), 0.01);
-       
     }
 
     @Test
     public void addInterestPaymentFail() {
-
         BankAccounts allAccounts = new BankAccounts();
         allAccounts.createAccount();
-        try {
-            allAccounts.getAccount(1).payInterest();
-            fail();
-        } catch (IllegalArgumentException e) {
-            // pass test
-        }
-        
-       
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).payInterest()
+        );
     }
 }

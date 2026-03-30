@@ -20,12 +20,9 @@ public class TransactionTest {
     @Test
     public void testInvalidDeposit() {
         BankAccount testAccount = new BankAccount(1);
-        try {
-            testAccount.deposit(-50);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing, test passes
-        }
+        assertThrows(IllegalArgumentException.class, 
+            () -> testAccount.deposit(-50)
+        );
     }
 
     @Test
@@ -55,12 +52,9 @@ public class TransactionTest {
     public void testNoTransactionOnInvalidDeposit() {
         BankAccount account = new BankAccount(1);
 
-        try {
-            account.deposit(-10);
-            fail();
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
+        assertThrows(IllegalArgumentException.class,
+            () -> account.deposit(-10)
+        );
 
         assertEquals(0, account.getTransactions().getAllTransactions().size());
     }
