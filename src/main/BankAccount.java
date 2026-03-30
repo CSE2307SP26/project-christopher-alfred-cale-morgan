@@ -9,6 +9,7 @@ public class BankAccount {
     private int id;
     private Transactions transactions;
     private double interestRate;
+    private final double DEFAULT_INTEREST_RATE = 2.39;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
@@ -16,7 +17,7 @@ public class BankAccount {
         this.id = id;
         this.balance = 0;
         this.isAdmin = false;
-        this.interestRate = 2.39;
+        this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
     }
 
