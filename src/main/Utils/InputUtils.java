@@ -14,7 +14,7 @@ public class InputUtils {
     // helper method to reduce code repetition.
     private static <T> T getInput(String prompt, String errorMsg, Function<String, T> parser, Predicate<T> condition) {
         while (true) {
-            System.out.print(prompt + ": ");
+            System.out.print(prompt);
             // trim removes leading/trailing whitespace from the input
             String input = scanner.nextLine().trim(); 
             try {
