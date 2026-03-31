@@ -9,7 +9,7 @@ echo "Compiling..."
 mkdir -p bin
 
 # Compile all Java files
-javac -d bin src/main/*.java src/main/MenuOptions/*.java
+javac -d bin src/main/*.java src/main/MenuOptions/*.java src/main/Utils/*.java
 
 echo "Running app..."
 
