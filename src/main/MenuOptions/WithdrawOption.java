@@ -1,6 +1,7 @@
 package main.MenuOptions;
 
 import main.AppContext;
+import main.Utils.InputUtils;
 
 public class WithdrawOption implements IMenuOption {
     public String getDisplayString() {
@@ -9,12 +10,11 @@ public class WithdrawOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        double withdrawAmount = -1;
-        while(withdrawAmount < 0) {
-            System.out.print("How much would you like to withdraw: ");
-            withdrawAmount = ctx.getKeyboardInput().nextDouble();
-        }
-        ctx.getUserAccount().withdraw(withdrawAmount);
-        System.out.println("Successfully Withdrew $" + withdrawAmount);
+        double amount = InputUtils.getDoubleUntil("How much would you like to withdraw: ",
+            "Please enter a positive amount less than or equal to your account balance",
+            d -> (d > 0 && ctx.getUserAccount().getBalance() >= d)
+        );
+        ctx.getUserAccount().withdraw(amount);
+        System.out.println("Successfully Withdrew $" + amount);
     }
 }

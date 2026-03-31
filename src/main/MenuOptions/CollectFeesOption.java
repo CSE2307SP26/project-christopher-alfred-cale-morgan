@@ -2,6 +2,7 @@ package main.MenuOptions;
 
 import main.AppContext;
 import main.BankAccount;
+import main.Utils.InputUtils;
 
 public class CollectFeesOption implements IMenuOption {
     public String getDisplayString() {
@@ -11,9 +12,7 @@ public class CollectFeesOption implements IMenuOption {
     public void execute() {
         AppContext ctx = AppContext.getInstance();
         if (ctx.getUserAccount().getAdminStatus()) {
-            int otherId;
-            System.out.print("Enter account ID to collect from: ");
-            otherId = ctx.getKeyboardInput().nextInt();
+            int otherId = InputUtils.getInt("Enter account ID to collect from: ");
             BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {

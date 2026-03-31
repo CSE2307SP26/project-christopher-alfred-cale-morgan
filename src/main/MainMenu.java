@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import main.MenuOptions.*;
+import main.Utils.InputUtils;
 
 public class MainMenu {
     private AppContext appContext;
@@ -14,7 +15,6 @@ public class MainMenu {
 
         appContext.setBankAccounts(new BankAccounts());
         appContext.setUserAccount(appContext.getBankAccounts().createAccount()); // create user's account
-        appContext.setKeyboardInput(new Scanner(System.in));
 
         options = new ArrayList<>();
         options.add(new CheckBalanceOption());
@@ -43,11 +43,10 @@ public class MainMenu {
     }
 
     public int getUserSelection() {
-        int selection = -1;
-        while(selection < 1 || selection > options.size() + 1) {
-            System.out.print("Please make a selection: ");
-            selection = appContext.getKeyboardInput().nextInt();
-        }
+        int selection = InputUtils.getIntUntil("Please make a selection: ",
+        "Please make a selection between 1 and " + (options.size() + 1),
+        i -> (i >= 1 && i <= options.size() + 1)
+        );
         return selection;
     }
 

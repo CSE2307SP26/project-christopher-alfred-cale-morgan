@@ -15,15 +15,6 @@ public class AppContext {
 
     private BankAccounts bankAccounts;
     private BankAccount userAccount;
-    private Scanner keyboardInput;
-      
-    public Scanner getKeyboardInput() {
-        return keyboardInput;
-    }
-
-    public void setKeyboardInput(Scanner keyboardInput) {
-        this.keyboardInput = keyboardInput;
-    }
 
     public BankAccount getUserAccount() {
         return userAccount;

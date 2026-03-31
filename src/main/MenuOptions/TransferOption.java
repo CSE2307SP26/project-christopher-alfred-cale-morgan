@@ -2,6 +2,7 @@ package main.MenuOptions;
 
 import main.AppContext;
 import main.BankAccount;
+import main.Utils.InputUtils;
 
 public class TransferOption implements IMenuOption {
     public String getDisplayString() {
@@ -10,17 +11,13 @@ public class TransferOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        double transferAmount = -1;
-        int otherId = -1;
 
-        while (transferAmount <= 0) {
-            System.out.print("How much would you like to transfer: ");
-            transferAmount = ctx.getKeyboardInput().nextDouble();
-        }
+        double transferAmount = InputUtils.getDoubleUntil("How much would you like to transfer: ",
+            "Please enter a positive amount that is less than or equal to your account balance.",
+            d-> (d > 0 && ctx.getUserAccount().getBalance() >= d)
+        );
 
-        System.out.print("Enter account ID to transfer to: ");
-        otherId = ctx.getKeyboardInput().nextInt();
-
+        int otherId = InputUtils.getInt("Enter account ID to transfer to: ");
         BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
         if (target == null) {

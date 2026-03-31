@@ -2,6 +2,7 @@ package main.MenuOptions;
 
 import main.AppContext;
 import main.BankAccount;
+import main.Utils.InputUtils;
 
 public class CreateFeesOption implements IMenuOption {
     public String getDisplayString() {
@@ -11,22 +12,18 @@ public class CreateFeesOption implements IMenuOption {
     public void execute() {
         AppContext ctx = AppContext.getInstance();
         if(ctx.getUserAccount().getAdminStatus()) {
-            int otherId;
-            System.out.print("Enter account ID to add fees to: ");
-            otherId = ctx.getKeyboardInput().nextInt();
+            int otherId = InputUtils.getInt("Enter account ID to add fees to: ");
             BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {
                 throw new IllegalArgumentException("Target account cannot be found.");
             }
 
-            double addedFee = -1;
-            while (addedFee <= 0) {
-                System.out.print("How much would you like to add to their fees: ");
-                addedFee = ctx.getKeyboardInput().nextDouble();
-            }
+            double amount = InputUtils.getDoubleUntil("How much would you like to add to their fees: ",
+                  "Please enter an amount greater than zero.", 
+                  d->d >0);
 
-            target.addFees(addedFee);
+            target.addFees(amount);
         } else {
             throw new UnsupportedOperationException("Account does not have admin status.");
         }
