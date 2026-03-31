@@ -10,11 +10,11 @@ public class MainMenu {
     private List<IMenuOption> options;
 
     public MainMenu() {
-        appContext = new AppContext();
+        appContext = AppContext.getInstance();
 
-        appContext.bankAccounts = new BankAccounts();
-        appContext.userAccount = appContext.bankAccounts.createAccount(); // create user's account
-        appContext.keyboardInput = new Scanner(System.in);
+        appContext.setBankAccounts(new BankAccounts());
+        appContext.setUserAccount(appContext.getBankAccounts().createAccount()); // create user's account
+        appContext.setKeyboardInput(new Scanner(System.in));
 
         options = new ArrayList<>();
         options.add(new CheckBalanceOption());
@@ -27,6 +27,8 @@ public class MainMenu {
         options.add(new AddInterestPaymentOption());
         options.add(new CreateFeesOption());
         options.add(new CollectFeesOption());
+
+        // TODO: Add a MenuOption implementation to switch user accounts
     }
 
     public void displayOptions() {
@@ -44,39 +46,28 @@ public class MainMenu {
         int selection = -1;
         while(selection < 1 || selection > options.size() + 1) {
             System.out.print("Please make a selection: ");
-            selection = appContext.keyboardInput.nextInt();
+            selection = appContext.getKeyboardInput().nextInt();
         }
-        appContext.currentInput = selection;
         return selection;
     }
 
     public void processInput(int selection) {
         //Basically if statement, add cases for each new thing we add
-        if (selection > 0 && selection < options.size())
-            options.get(selection - 1).execute(appContext);
+        if (selection > 0 && selection <= options.size()) {
+            try {
+                options.get(selection - 1).execute();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         if(selection == options.size() + 1) //Leave exit at the end
                 System.out.println("Exiting!");
         }
 
-    public int getNumAccounts() { //TODO: Fix this one
-
-        return appContext.bankAccounts.getNumAccounts(); //this.userAccounts.size();
+    public int getNumAccounts() {
+        return appContext.getBankAccounts().getNumAccounts();
     }
-    /*TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts */
-
-    /*
-    TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts 
-    */
-
-    /*
-    TODO
-    Add a method to switch user accounts
-    Update Main Menu options to include changing accounts 
-    */
 
     public void run() {
         int selection = -1;

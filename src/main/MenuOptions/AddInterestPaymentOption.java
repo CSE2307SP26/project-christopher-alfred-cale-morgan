@@ -8,21 +8,22 @@ public class AddInterestPaymentOption implements IMenuOption {
         return "Add interest payment (Admin)";
     }
 
-    public void execute(AppContext ctx) {
-        if(ctx.userAccount.getAdminStatus()) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
+
+        if(ctx.getUserAccount().getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to collect from: ");
-            otherId = ctx.keyboardInput.nextInt();
-            BankAccount target = ctx.bankAccounts.getAccount(otherId);
+            otherId = ctx.getKeyboardInput().nextInt();
+            BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {
-                System.out.println("Account not found.");
-                return;
+                throw new IllegalArgumentException("Target account cannot be found.");
             }
 
             target.payInterest();
         } else {
-            throw new IllegalCallerException("Account does not have admin status.");
+            throw new UnsupportedOperationException("Account does not have admin status.");
         }
     }
 }

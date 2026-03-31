@@ -7,13 +7,14 @@ public class DepositOption implements IMenuOption {
         return "Make a deposit";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         double depositAmount = -1;
         while(depositAmount < 0) {
             System.out.print("How much would you like to deposit: ");
-            depositAmount = ctx.keyboardInput.nextInt();
+            depositAmount = ctx.getKeyboardInput().nextDouble();
         }
         System.out.println("Successfully Deposited $" + depositAmount);
-        ctx.userAccount.deposit(depositAmount);
+        ctx.getUserAccount().deposit(depositAmount);
     }
 }

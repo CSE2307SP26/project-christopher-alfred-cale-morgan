@@ -9,6 +9,7 @@ public class BankAccount {
     private int id;
     private Transactions transactions;
     private double interestRate;
+    public static final double DEFAULT_INTEREST_RATE = 2.39;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
@@ -16,10 +17,9 @@ public class BankAccount {
         this.id = id;
         this.balance = 0;
         this.isAdmin = false;
-        this.interestRate = 2.39;
+        this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
     }
-
 
     public double getInterestRate() {
         return this.interestRate;
@@ -42,8 +42,6 @@ public class BankAccount {
         } else {
             throw new IllegalArgumentException("Account must have a balance");
         }
-        
-
     }
 
     public int getId() {
@@ -69,9 +67,7 @@ public class BankAccount {
         }
     }
 
-
     public void payFee() {
-
         if (this.balance >= this.accountFees) {
             this.balance -= this.accountFees;
             this.transactions.addTransaction(
@@ -79,24 +75,22 @@ public class BankAccount {
             );
             this.accountFees = 0;
         } else {
-            throw new IllegalCallerException("Accout has insufficient funds to pay fees");
+            throw new IllegalCallerException("Account has insufficient funds to pay fees");
         }
-
     }
 
-    public void setAdminStatus(){ //TODO: be able to set admin false
-        this.isAdmin = true;
-        System.out.print("Admin Access Gained!\n");
+    public void setAdminStatus() {
+        this.isAdmin = !this.isAdmin;
+        if(this.isAdmin) {
+            System.out.print("Logged in with admin access!\n");
+        } else {
+            System.out.print("Logged out from admin access!\n");
+        }
     }
 
     public boolean getAdminStatus() {
-        if(!(this.isAdmin)) {
-            return false;
-        }
-        return true;
+        return this.isAdmin;
     }
-
-
 
     public void withdraw(double amount) {
         if(amount < 0.0f)
@@ -109,7 +103,6 @@ public class BankAccount {
                 new Transaction(amount, "Withdrawal", "Withdrawing " + amount)
             );
     }
-
 
     public void transfer(double amount, BankAccount other) {
         if (other == null) {
@@ -139,7 +132,6 @@ public class BankAccount {
                 "Received $" + amount + " from account " + this.getId())
         );
     }
-
 
     public void addFees(double addedFee) {
         this.accountFees += addedFee;

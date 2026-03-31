@@ -8,26 +8,26 @@ public class TransferOption implements IMenuOption {
         return "Make a transfer";
     }
 
-    public void execute(AppContext ctx) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
         double transferAmount = -1;
         int otherId = -1;
 
         while (transferAmount <= 0) {
             System.out.print("How much would you like to transfer: ");
-            transferAmount = ctx.keyboardInput.nextDouble();
+            transferAmount = ctx.getKeyboardInput().nextDouble();
         }
 
         System.out.print("Enter account ID to transfer to: ");
-        otherId = ctx.keyboardInput.nextInt();
+        otherId = ctx.getKeyboardInput().nextInt();
 
-        BankAccount target = ctx.bankAccounts.getAccount(otherId);
+        BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
         if (target == null) {
-            System.out.println("Account not found.");
-            return;
+            throw new IllegalArgumentException("Target account cannot be found.");
         }
 
-        ctx.userAccount.transfer(transferAmount, target);
+        ctx.getUserAccount().transfer(transferAmount, target);
         System.out.println("Transfer of " + transferAmount + " to " + target.getId() + "successful!");
     }
 }

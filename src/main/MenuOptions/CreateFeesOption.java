@@ -8,27 +8,27 @@ public class CreateFeesOption implements IMenuOption {
         return "Create Fees (Admin)";
     }
 
-    public void execute(AppContext ctx) {
-        if(ctx.userAccount.getAdminStatus()) {
+    public void execute() {
+        AppContext ctx = AppContext.getInstance();
+        if(ctx.getUserAccount().getAdminStatus()) {
             int otherId;
             System.out.print("Enter account ID to add fees to: ");
-            otherId = ctx.keyboardInput.nextInt();
-            BankAccount target = ctx.bankAccounts.getAccount(otherId);
+            otherId = ctx.getKeyboardInput().nextInt();
+            BankAccount target = ctx.getBankAccounts().getAccount(otherId);
 
             if (target == null) {
-                System.out.println("Account not found.");
-                return;
+                throw new IllegalArgumentException("Target account cannot be found.");
             }
 
             double addedFee = -1;
             while (addedFee <= 0) {
                 System.out.print("How much would you like to add to their fees: ");
-                addedFee = ctx.keyboardInput.nextDouble();
+                addedFee = ctx.getKeyboardInput().nextDouble();
             }
 
             target.addFees(addedFee);
         } else {
-            throw new IllegalCallerException("Account does not have admin status.");
+            throw new UnsupportedOperationException("Account does not have admin status.");
         }
     }
 }
