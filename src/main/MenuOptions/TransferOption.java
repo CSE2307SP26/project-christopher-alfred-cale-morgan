@@ -25,6 +25,6 @@ public class TransferOption implements IMenuOption {
         }
 
         ctx.getUserAccount().transfer(transferAmount, target);
-        System.out.println("Transfer of " + transferAmount + " to " + target.getId() + " successful!");
+        System.out.println("Transfer of $" + transferAmount + " to account #" + target.getId() + " successful!");
     }
 }
