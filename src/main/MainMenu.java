@@ -2,7 +2,6 @@ package main;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 import main.MenuOptions.*;
 import main.Utils.InputUtils;
 

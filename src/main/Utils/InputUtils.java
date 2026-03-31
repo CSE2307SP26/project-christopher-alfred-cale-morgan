@@ -1,5 +1,6 @@
 package main.Utils;
 
+import java.io.InputStream;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -8,7 +9,7 @@ public class InputUtils {
 
     private InputUtils() {} // should not be instantiable
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     
     // helper method to reduce code repetition.
     private static <T> T getInput(String prompt, String errorMsg, Function<String, T> parser, Predicate<T> condition) {
@@ -61,5 +62,14 @@ public class InputUtils {
             s -> s.equalsIgnoreCase("y") || s.equalsIgnoreCase("n")
         );
         return input.equalsIgnoreCase("y");
+    }
+
+    /***
+     * Should never use this unless the app (somehow??) needs to change the InputStream
+     * to something other than System.in. This method mostly just makes testing easier. 
+     * @param in InputStream that the input collection for the app should read from
+     */
+    public static void setInputStream(InputStream in) {
+        scanner = new Scanner(in);
     }
 }

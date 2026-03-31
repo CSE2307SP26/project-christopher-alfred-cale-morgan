@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Scanner;
-
 public class AppContext {
     private static AppContext instance;
     private AppContext(){}

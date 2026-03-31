@@ -3,6 +3,7 @@ package test;
 import main.AppContext;
 import main.MainMenu;
 import main.MenuOptions.IMenuOption;
+import main.Utils.InputUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 public class MainMenuTest {
     
     private static MainMenu menu;
-    private static AppContext ctx;
+    private static AppContext ctx = AppContext.getInstance();
 
     private final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     private final PrintStream sysOut = System.out;
@@ -30,7 +30,7 @@ public class MainMenuTest {
     public void setUpMainMenuTests() {
         System.setOut(new PrintStream(outStream));
         menu = new MainMenu();
-        ctx = menu.getAppContext();
+        ctx = AppContext.getInstance();
     }
 
     @AfterEach
@@ -38,20 +38,27 @@ public class MainMenuTest {
         System.setOut(sysOut);
         System.setIn(sysIn);
 
-        if(ctx.getKeyboardInput() != null) {
-            ctx.getKeyboardInput().close();
-        }
+        InputUtils.setInputStream(System.in);
+    }
+
+    /***
+     * Helper method to make input collection/testing easier
+     * (Added during migration to InputUtils)
+     * @param data string to simulate the user typing
+     */
+    private void simulateInput(String data) {
+        ByteArrayInputStream testIn = new ByteArrayInputStream(data.getBytes());
+        System.setIn(testIn);
+        InputUtils.setInputStream(testIn);
     }
 
     // Test Menu Options
     @Test
     public void testInitialization()
     {
-        AppContext ctx = menu.getAppContext();
         assertNotNull(ctx);
         assertNotNull(ctx.getBankAccounts());
         assertNotNull(ctx.getUserAccount());
-        assertNotNull(ctx.getKeyboardInput());
 
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
@@ -77,9 +84,7 @@ public class MainMenuTest {
 
     @Test
     public void testGetUserSelectionNormal() {
-        String testInput = "3\n";
-        ctx.setKeyboardInput(new Scanner(new ByteArrayInputStream(testInput.getBytes())));
-
+        simulateInput("3\n");
         int selection = menu.getUserSelection();
         assertEquals(3, selection);
     }
@@ -87,9 +92,7 @@ public class MainMenuTest {
     @Test
     public void testGetUserSelectionOutOfBoundsThenValid() {
         // below, above, in bounds
-        String testInput = "-1\n99\n5\n";
-        ctx.setKeyboardInput(new Scanner(new ByteArrayInputStream(testInput.getBytes())));
-
+        simulateInput("-1\n99\n5\n");
         int selection = menu.getUserSelection();
         assertEquals(5, selection);
     }
