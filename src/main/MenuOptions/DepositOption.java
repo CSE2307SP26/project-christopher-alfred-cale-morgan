@@ -1,6 +1,7 @@
 package main.MenuOptions;
 
 import main.AppContext;
+import main.Utils.InputUtils;
 
 public class DepositOption implements IMenuOption {
     public String getDisplayString() {
@@ -9,12 +10,10 @@ public class DepositOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        double depositAmount = -1;
-        while(depositAmount < 0) {
-            System.out.print("How much would you like to deposit: ");
-            depositAmount = ctx.getKeyboardInput().nextDouble();
-        }
-        System.out.println("Successfully Deposited $" + depositAmount);
-        ctx.getUserAccount().deposit(depositAmount);
+        double amount = InputUtils.getDoubleUntil("How much would you like to deposit: ",
+            "Please enter a positive deposit amount",
+            d->d > 0);
+        System.out.println("Successfully Deposited $" + amount);
+        ctx.getUserAccount().deposit(amount);
     }
 }

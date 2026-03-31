@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Scanner;
-
 public class AppContext {
     private static AppContext instance;
     private AppContext(){}
@@ -15,15 +13,6 @@ public class AppContext {
 
     private BankAccounts bankAccounts;
     private BankAccount userAccount;
-    private Scanner keyboardInput;
-      
-    public Scanner getKeyboardInput() {
-        return keyboardInput;
-    }
-
-    public void setKeyboardInput(Scanner keyboardInput) {
-        this.keyboardInput = keyboardInput;
-    }
 
     public BankAccount getUserAccount() {
         return userAccount;
