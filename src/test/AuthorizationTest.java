@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import main.AppContext;
 import main.BankAccount;
-import main.MenuOptions.AddInterestPaymentOption;
-import main.MenuOptions.CollectFeesOption;
-import main.MenuOptions.CreateFeesOption;
+import main.Menus.MenuOptions.AddInterestPaymentOption;
+import main.Menus.MenuOptions.CollectFeesOption;
+import main.Menus.MenuOptions.CreateFeesOption;
 import main.Users.User;
 import main.Users.UserRole;
 import main.Users.UserService;
