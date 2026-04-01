@@ -12,9 +12,9 @@ public class WithdrawOption implements IMenuOption {
         AppContext ctx = AppContext.getInstance();
         double amount = InputUtils.getDoubleUntil("How much would you like to withdraw: ",
             "Please enter a positive amount less than or equal to your account balance",
-            d -> (d > 0 && ctx.getUserAccount().getBalance() >= d)
+            d -> (d > 0 && ctx.getSelectedAccount().getBalance() >= d)
         );
-        ctx.getUserAccount().withdraw(amount);
+        ctx.getSelectedAccount().withdraw(amount);
         System.out.println("Successfully Withdrew $" + amount);
     }
 }

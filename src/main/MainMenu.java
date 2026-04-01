@@ -3,6 +3,9 @@ package main;
 import java.util.List;
 import java.util.ArrayList;
 import main.MenuOptions.*;
+import main.Users.User;
+import main.Users.UserRole;
+import main.Users.UserService;
 import main.Utils.InputUtils;
 
 public class MainMenu {
@@ -11,18 +14,24 @@ public class MainMenu {
 
     public MainMenu() {
         appContext = AppContext.getInstance();
-
-        appContext.setBankAccounts(new BankAccounts());
-        appContext.setUserAccount(appContext.getBankAccounts().createAccount()); // create user's account
+        
+        // Seed with new user until login method implemented
+        UserService.getInstance().registerUser("customer", "password", UserRole.Customer);
+        User defaultUser = UserService.getInstance().authenticate("customer", "password");
+        appContext.setCurrentUser(defaultUser);
+        
+        BankAccount defaultAccount = appContext.getAllAccounts().createAccount();
+        defaultUser.addAccountId(defaultAccount.getId());
+        appContext.setSelectedAccount(defaultAccount);
 
         options = new ArrayList<>();
         options.add(new CheckBalanceOption());
         options.add(new DepositOption());
         options.add(new WithdrawOption());
         options.add(new TransferOption());
+        options.add(new AddAccountOption());
         options.add(new ViewPersonalFeesOption());
         options.add(new ViewHistoryOption());
-        options.add(new GainAdminOption());
         options.add(new AddInterestPaymentOption());
         options.add(new CreateFeesOption());
         options.add(new CollectFeesOption());
@@ -64,7 +73,7 @@ public class MainMenu {
         }
 
     public int getNumAccounts() {
-        return appContext.getBankAccounts().getNumAccounts();
+        return appContext.getAllAccounts().getNumAccounts();
     }
 
     public void run() {
