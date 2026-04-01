@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayInputStream;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -95,7 +94,7 @@ public class AuthorizationTest {
         BankAccount newAccount = ctx.getAllAccounts().createAccount();
         customer.addAccountId(newAccount.getId());
         String userInput = newAccount.getId() + "\n"; // Account #
-        
+
         ctx.getAllAccounts().getAccount(newAccount.getId()).deposit(100);
         InputUtils.setInputStream(new ByteArrayInputStream(userInput.getBytes()));
     
