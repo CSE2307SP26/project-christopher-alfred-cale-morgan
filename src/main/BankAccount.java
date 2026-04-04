@@ -5,7 +5,6 @@ public class BankAccount {
 
     private double balance;
     private double accountFees;
-    private Boolean isAdmin;
     private int id;
     private Transactions transactions;
     private double interestRate;
@@ -16,7 +15,6 @@ public class BankAccount {
     public BankAccount(int id) {
         this.id = id;
         this.balance = 0;
-        this.isAdmin = false;
         this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
     }
@@ -77,19 +75,6 @@ public class BankAccount {
         } else {
             throw new IllegalCallerException("Account has insufficient funds to pay fees");
         }
-    }
-
-    public void setAdminStatus() {
-        this.isAdmin = !this.isAdmin;
-        if(this.isAdmin) {
-            System.out.print("Logged in with admin access!\n");
-        } else {
-            System.out.print("Logged out from admin access!\n");
-        }
-    }
-
-    public boolean getAdminStatus() {
-        return this.isAdmin;
     }
 
     public void withdraw(double amount) {

@@ -57,8 +57,8 @@ public class MainMenuTest {
     public void testInitialization()
     {
         assertNotNull(ctx);
-        assertNotNull(ctx.getBankAccounts());
-        assertNotNull(ctx.getUserAccount());
+        assertNotNull(ctx.getAllAccounts());
+        assertNotNull(ctx.getSelectedAccount());
 
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
@@ -66,7 +66,8 @@ public class MainMenuTest {
 
     @Test 
     public void testGetNumAccounts() {
-        assertEquals(1, menu.getNumAccounts());
+        // default user and default admin
+        assertEquals(2, menu.getNumAccounts());
     }
 
     @Test

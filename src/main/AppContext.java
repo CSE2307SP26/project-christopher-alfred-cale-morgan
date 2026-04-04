@@ -1,5 +1,7 @@
 package main;
 
+import main.Users.User;
+
 public class AppContext {
     private static AppContext instance;
     private AppContext(){}
@@ -11,22 +13,34 @@ public class AppContext {
         return instance;
     }
 
-    private BankAccounts bankAccounts;
-    private BankAccount userAccount;
+    private User currentUser;
+    private BankAccount selectedAccount;
+    private BankAccounts allAccounts = new BankAccounts();
 
-    public BankAccount getUserAccount() {
-        return userAccount;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
-    public void setUserAccount(BankAccount userAccount) {
-        this.userAccount = userAccount;
+    public void setCurrentUser(User user) {
+        currentUser = user;
+
+        // select their first account if they have one
+        if(!user.getAccountIds().isEmpty()) {
+            selectedAccount = allAccounts.getAccount(user.getAccountIds().get(0));
+        } else {
+            selectedAccount = null;
+        }
     }
 
-    public BankAccounts getBankAccounts() {
-        return bankAccounts;
+    public BankAccount getSelectedAccount() {
+        return selectedAccount;
     }
 
-    public void setBankAccounts(BankAccounts bankAccounts) {
-        this.bankAccounts = bankAccounts;
+    public void setSelectedAccount(BankAccount userAccount) {
+        this.selectedAccount = userAccount;
+    }
+
+    public BankAccounts getAllAccounts() {
+        return allAccounts;
     }
 }

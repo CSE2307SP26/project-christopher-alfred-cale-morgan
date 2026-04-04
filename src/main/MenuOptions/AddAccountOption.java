@@ -1,6 +1,7 @@
 package main.MenuOptions;
 
 import main.AppContext;
+import main.BankAccount;
 
 public class AddAccountOption implements IMenuOption {
     public String getDisplayString() {
@@ -9,7 +10,12 @@ public class AddAccountOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        ctx.getBankAccounts().createAccount();
-        //TODO We'll need a way to track which accounts are owned by who?
+        
+        BankAccount newAccount = ctx.getAllAccounts().createAccount();
+
+        ctx.getCurrentUser().addAccountId(newAccount.getId());
+        ctx.setSelectedAccount(newAccount);
+
+        System.out.println("Successfully opened new account (# " + newAccount.getId() + ")");
     }
 }

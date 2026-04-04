@@ -9,7 +9,7 @@ public class ViewHistoryOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        ctx.getUserAccount().getTransactions().displayTransactions();
+        ctx.getSelectedAccount().getTransactions().displayTransactions();
         System.out.println();
     }
 }

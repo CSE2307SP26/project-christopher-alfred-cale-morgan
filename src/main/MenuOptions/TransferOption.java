@@ -14,17 +14,17 @@ public class TransferOption implements IMenuOption {
 
         double transferAmount = InputUtils.getDoubleUntil("How much would you like to transfer: ",
             "Please enter a positive amount that is less than or equal to your account balance.",
-            d-> (d > 0 && ctx.getUserAccount().getBalance() >= d)
+            d-> (d > 0 && ctx.getSelectedAccount().getBalance() >= d)
         );
 
         int otherId = InputUtils.getInt("Enter account ID to transfer to: ");
-        BankAccount target = ctx.getBankAccounts().getAccount(otherId);
+        BankAccount target = ctx.getAllAccounts().getAccount(otherId);
 
         if (target == null) {
             throw new IllegalArgumentException("Target account cannot be found.");
         }
 
-        ctx.getUserAccount().transfer(transferAmount, target);
+        ctx.getSelectedAccount().transfer(transferAmount, target);
         System.out.println("Transfer of $" + transferAmount + " to account #" + target.getId() + " successful!");
     }
 }

@@ -104,18 +104,10 @@ public class BankAccountTest {
                         allAccounts.getAccount(2))
         );
     }
-
-    @Test
-    public void testNewAdmin() { //Test the method to gain admin access
-        BankAccount testAccount = new BankAccount(1);
-        testAccount.setAdminStatus();
-        assertTrue(testAccount.getAdminStatus());
-    }
  
     @Test
     public void takeFeesSuccess() {
         BankAccount testAccount = new BankAccount(1);
-        testAccount.setAdminStatus();
         testAccount.deposit(100);
         testAccount.addFees(50);
         testAccount.payFee();
