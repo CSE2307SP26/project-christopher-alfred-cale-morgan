@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +20,12 @@ public class AppContextTest {
     public void setUpAppContextTests() {
         this.ctx = AppContext.getInstance();
         this.service = UserService.getInstance();
+    }
+
+    @AfterEach
+    public void resetAppContextTests() {
+        ctx.reset();
+        UserService.getInstance().reset();
     }
 
     @Test

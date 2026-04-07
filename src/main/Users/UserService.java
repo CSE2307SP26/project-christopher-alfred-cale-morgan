@@ -3,12 +3,11 @@ package main.Users;
 import java.util.HashMap;
 import java.util.Map;
 
+import main.AppContext;
+
 public class UserService {
     private UserService(){
         users = new HashMap<>();
-
-        // Seed an admin account for testing
-        registerUser("admin", "password", UserRole.Administrator);
     }
  
     private static UserService instance;
@@ -48,7 +47,19 @@ public class UserService {
         User user = users.get(username);
         if (user != null && user.getPassword().equals(password))
             return user;
-        
         return null;
+    }
+
+    /***
+     * When logging out the user, menus should use this method instead of doing it manually.
+     */
+    public void logoutUser() {
+        AppContext ctx = AppContext.getInstance();
+        ctx.setCurrentUser(null);
+    }
+
+    // Allows for easier testing, should not actually be called. 
+    public void reset() {
+        users.clear();
     }
 }

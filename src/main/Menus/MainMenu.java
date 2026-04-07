@@ -2,14 +2,15 @@ package main.Menus;
 
 import main.AppContext;
 import main.Menus.MenuOptions.*;
+import main.Users.UserService;
 
 public class MainMenu extends AbstractMenu {
-    private AppContext appContext;
+    private AppContext ctx;
 
     public MainMenu() {
-        super("2307 Bank App - Main Menu");
+        super("2307 Bank App - Main Menu", "Log out");
 
-        appContext = AppContext.getInstance();
+        ctx = AppContext.getInstance();
 
         addMenuOption(new CheckBalanceOption());
         addMenuOption(new DepositOption());
@@ -26,14 +27,20 @@ public class MainMenu extends AbstractMenu {
 
     @Override
     protected boolean shouldKeepRunning() {
-        return super.shouldKeepRunning() && appContext.getCurrentUser() != null;
+        return super.shouldKeepRunning() && ctx.getCurrentUser() != null;
+    }
+
+    @Override
+    protected void onClose() {
+        System.out.println("Logging out user...");
+        UserService.getInstance().logoutUser();
     }
 
     public int getNumAccounts() {
-        return appContext.getAllAccounts().getNumAccounts();
+        return ctx.getAllAccounts().getNumAccounts();
     }
 
     public AppContext getAppContext() {
-        return appContext;
+        return ctx;
     }
 }
