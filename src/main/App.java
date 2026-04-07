@@ -1,8 +1,9 @@
 package main;
 
 import main.Menus.AbstractMenu;
+import main.Menus.AdminMenu;
+import main.Menus.CustomerMenu;
 import main.Menus.LoginMenu;
-import main.Menus.MainMenu;
 import main.Users.UserRole;
 import main.Users.UserService;
 
@@ -18,7 +19,11 @@ public class App {
             if (ctx.getCurrentUser() == null) {
                 currentMenu = new LoginMenu();
             } else {
-                currentMenu = new MainMenu();
+                if(ctx.getCurrentUser().getRole() == UserRole.Administrator) {
+                    currentMenu = new AdminMenu();
+                } else {
+                currentMenu = new CustomerMenu();
+                }
             }
             currentMenu.run();
         }

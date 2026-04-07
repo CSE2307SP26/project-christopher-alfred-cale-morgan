@@ -37,7 +37,7 @@ public class AuthorizationTest {
     @AfterEach
     public void resetInput() {
         InputUtils.setInputStream(System.in);
-        ctx.setCurrentUser(null);
+        ctx.reset();
         UserService.getInstance().reset();
     }
 
