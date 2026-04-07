@@ -10,6 +10,10 @@ public class WithdrawOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
+        if(ctx.getSelectedAccount() == null) {
+            System.out.println("No accounts yet, please make one first.");
+            return;
+        }
         double amount = InputUtils.getDoubleUntil("How much would you like to withdraw: ",
             "Please enter a positive amount less than or equal to your account balance",
             d -> (d > 0 && ctx.getSelectedAccount().getBalance() >= d)

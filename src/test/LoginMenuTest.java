@@ -37,8 +37,7 @@ public class LoginMenuTest {
         System.setIn(sysIn);
         InputUtils.setInputStream(sysIn);
 
-        ctx.setCurrentUser(null);
-        ctx.setExitCondition(false);
+        ctx.reset();
         UserService.getInstance().reset();
     }
 
