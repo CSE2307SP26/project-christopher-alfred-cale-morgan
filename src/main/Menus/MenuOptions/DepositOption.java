@@ -1,4 +1,4 @@
-package main.MenuOptions;
+package main.Menus.MenuOptions;
 
 import main.AppContext;
 import main.Utils.InputUtils;

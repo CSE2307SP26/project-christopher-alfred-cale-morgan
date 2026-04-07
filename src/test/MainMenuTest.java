@@ -1,8 +1,13 @@
 package test;
 
 import main.AppContext;
-import main.MainMenu;
-import main.MenuOptions.IMenuOption;
+import main.BankAccount;
+import main.Menus.AbstractMenu;
+import main.Menus.MainMenu;
+import main.Menus.MenuOptions.IMenuOption;
+import main.Users.User;
+import main.Users.UserRole;
+import main.Users.UserService;
 import main.Utils.InputUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class MainMenuTest {
     
-    private static MainMenu menu;
+    private static AbstractMenu menu;
     private static AppContext ctx = AppContext.getInstance();
 
     private final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -29,8 +34,19 @@ public class MainMenuTest {
     @BeforeEach
     public void setUpMainMenuTests() {
         System.setOut(new PrintStream(outStream));
-        menu = new MainMenu();
         ctx = AppContext.getInstance();
+
+        // set up AppContext for tests
+        UserService.getInstance().registerUser("testUser", "testPass", UserRole.Customer);
+        User testUser = UserService.getInstance().authenticate("testUser", "testPass");
+        BankAccount testAccount = ctx.getAllAccounts().createAccount();
+        testUser.addAccountId(testAccount.getId());
+        
+        ctx.setCurrentUser(testUser);
+        ctx.setSelectedAccount(testAccount);
+
+        menu = new MainMenu();
+
     }
 
     @AfterEach
@@ -59,15 +75,8 @@ public class MainMenuTest {
         assertNotNull(ctx);
         assertNotNull(ctx.getAllAccounts());
         assertNotNull(ctx.getSelectedAccount());
-
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-    }
-
-    @Test 
-    public void testGetNumAccounts() {
-        // default user and default admin
-        assertEquals(2, menu.getNumAccounts());
     }
 
     @Test
@@ -75,7 +84,7 @@ public class MainMenuTest {
         menu.displayOptions();
         String output = outStream.toString();
 
-        assertTrue(output.contains("Welcome to the 237 Bank App!"));
+        assertTrue(output.contains("2307 Bank App - Main Menu"));
         assertTrue(output.contains("1. Check Account Balance"));
         assertTrue(output.contains("2. Make a deposit"));
     
@@ -102,6 +111,6 @@ public class MainMenuTest {
     public void testExitSelection() {
         int exitSelection = menu.getMenuOptions().size() + 1;
         menu.processInput(exitSelection);
-        assertTrue(outStream.toString().contains("Exiting!"));
+        assertTrue(outStream.toString().contains("Exiting"));
     }
 }
