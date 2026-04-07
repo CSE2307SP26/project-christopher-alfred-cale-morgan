@@ -39,27 +39,28 @@ public class MainMenuTest {
         // set up AppContext for tests
         UserService.getInstance().registerUser("testUser", "testPass", UserRole.Customer);
         User testUser = UserService.getInstance().authenticate("testUser", "testPass");
+        ctx.setCurrentUser(testUser);
+
         BankAccount testAccount = ctx.getAllAccounts().createAccount();
         testUser.addAccountId(testAccount.getId());
         
-        ctx.setCurrentUser(testUser);
         ctx.setSelectedAccount(testAccount);
 
         menu = new MainMenu();
-
     }
 
     @AfterEach
     public void resetMainMenuTests() {
         System.setOut(sysOut);
         System.setIn(sysIn);
-
         InputUtils.setInputStream(System.in);
+
+        ctx.reset();
+        UserService.getInstance().reset();
     }
 
     /***
      * Helper method to make input collection/testing easier
-     * (Added during migration to InputUtils)
      * @param data string to simulate the user typing
      */
     private void simulateInput(String data) {
@@ -89,7 +90,7 @@ public class MainMenuTest {
         assertTrue(output.contains("2. Make a deposit"));
     
         int exitNumber = menu.getMenuOptions().size() + 1;
-        assertTrue(output.contains(exitNumber + ". Exit the app"));
+        assertTrue(output.contains(exitNumber + ". Log out"));
     }
 
     @Test
@@ -111,6 +112,7 @@ public class MainMenuTest {
     public void testExitSelection() {
         int exitSelection = menu.getMenuOptions().size() + 1;
         menu.processInput(exitSelection);
-        assertTrue(outStream.toString().contains("Exiting"));
+        assertTrue(outStream.toString().contains("Logging out user..."));
+        assertNull(AppContext.getInstance().getCurrentUser());
     }
 }

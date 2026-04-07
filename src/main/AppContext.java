@@ -16,16 +16,24 @@ public class AppContext {
     private User currentUser;
     private BankAccount selectedAccount;
     private BankAccounts allAccounts = new BankAccounts();
+    private boolean exitCondition = false; // signals when to close the application
 
     public User getCurrentUser() {
         return currentUser;
     }
 
+    /***
+     * Should only be used by UserService
+     * @param user
+     */
+
     public void setCurrentUser(User user) {
         currentUser = user;
-
-        // select their first account if they have one
-        if(!user.getAccountIds().isEmpty()) {
+        if(user == null) { 
+            selectedAccount = null;
+            return;
+        } 
+        else if(!user.getAccountIds().isEmpty()) {
             selectedAccount = allAccounts.getAccount(user.getAccountIds().get(0));
         } else {
             selectedAccount = null;
@@ -42,5 +50,21 @@ public class AppContext {
 
     public BankAccounts getAllAccounts() {
         return allAccounts;
+    }
+
+    public boolean getExitCondition() {
+         return this.exitCondition; 
+    }
+    
+    public void setExitCondition(boolean newExitCondition) {
+        this.exitCondition = newExitCondition;
+    }
+
+    public void reset() {
+        this.currentUser = null;
+        this.selectedAccount = null;
+        this.allAccounts = new BankAccounts();
+
+        this.exitCondition = false;
     }
 }

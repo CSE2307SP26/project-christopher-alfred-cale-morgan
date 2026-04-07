@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -11,14 +12,17 @@ import main.Users.UserService;
 
 public class UserTest {
     private User user;
-    private static int userCounter = 0; // require unique usernames across tests
-    
+ 
     @BeforeEach
-    public void setUpUserTest() {
+    public void setUpUserTests() {
         UserService service = UserService.getInstance();
-        String uniqueUsername = "user" + (userCounter++);
-        service.registerUser(uniqueUsername, "password", UserRole.Customer);
-        this.user = service.authenticate(uniqueUsername, "password");
+        service.registerUser("usersName", "password", UserRole.Customer);
+        this.user = service.authenticate("usersName", "password");
+    }
+
+    @AfterEach
+    public void resetUserTests() {
+        UserService.getInstance().reset();
     }
 
     @Test

@@ -10,20 +10,22 @@ public abstract class AbstractMenu {
     private List<IMenuOption> options = new ArrayList<>();
     private boolean isRunning;
     private String menuTitle;
+    private String exitOptionText;
 
-    public AbstractMenu(String menuTitle) {
+    public AbstractMenu(String menuTitle, String exitOptionText) {
         this.menuTitle = menuTitle;
+        this.exitOptionText = exitOptionText;
     }
 
     public void displayOptions() {
         System.out.println("\n--- " + menuTitle + " ---");
-
         for(int i = 1; i <= options.size(); i++) {
+
             // options start at 0 but menu starts at 1
             System.out.println((i) + ". " + options.get(i - 1).getDisplayString());
         }
         // last option should always be the exit option
-        System.out.println((options.size() + 1) + ". Exit the app");
+        System.out.println((options.size() + 1) + ". " + exitOptionText);
     }
 
     public int getUserSelection() {
@@ -43,16 +45,21 @@ public abstract class AbstractMenu {
             }
         }
         else if(selection == options.size() + 1) {
-            System.out.println("Exiting " + menuTitle + "...");
-            this.isRunning = false;
+            onClose();
         }
     }
 
-    // subclasses can redefine this to signal when they should close
+    // for signaling when to close  
     protected boolean shouldKeepRunning() {
         return this.isRunning;
     }
 
+    // executed when exit option is selected (different for login/main menus)
+    protected void onClose() {
+        System.out.println("Exiting " + menuTitle + "...");
+        this.isRunning = false;
+    }
+    
     public void run() {
         this.isRunning = true;
         while(shouldKeepRunning()) {

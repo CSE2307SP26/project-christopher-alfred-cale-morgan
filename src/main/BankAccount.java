@@ -32,8 +32,9 @@ public class BankAccount {
         double percentage;
 
         if(this.balance != 0) {
-            percentage = (this.interestRate/100)*(this.balance);
+            percentage = (this.interestRate / 100) * (this.balance);
             balance += percentage;
+            balance = Math.round(balance * 100.0) / 100.0; // Round to the nearest hundredth
             transactions.addTransaction(
                 new Transaction(percentage, "Deposit of interest", "Depositing " + percentage)
             );

@@ -2,7 +2,9 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import main.Users.User;
 import main.Users.UserRole;
@@ -10,6 +12,16 @@ import main.Users.UserService;
 
 public class UserServiceTest {
     
+    @BeforeEach
+    public void setUpUserServiceTests() {
+        UserService.getInstance().registerUser("admin", "password", UserRole.Administrator);
+    }
+
+    @AfterEach
+    public void resetUserServiceTests() {
+        UserService.getInstance().reset();
+    }
+
     @Test
     public void testSingletonInstance() {
         UserService first = UserService.getInstance();

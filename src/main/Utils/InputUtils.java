@@ -64,6 +64,18 @@ public class InputUtils {
         return input.equalsIgnoreCase("y");
     }
 
+    public static String getPassword(String prompt) {
+        // Use System.console()'s readPassword method, if supported by the terminal. 
+        if (System.console() != null) {
+            char[] chars = System.console().readPassword(prompt);
+            return new String(chars);
+        } else {
+            // Fall back to regular scanner if not supported 
+            // - still echoes password back to user, probably not great but fine for now
+            return getString(prompt);
+        }
+    }
+
     /***
      * Should never use this unless the app (somehow??) needs to change the InputStream
      * to something other than System.in. This method mostly just makes testing easier. 
