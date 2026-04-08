@@ -9,7 +9,7 @@ import main.Users.UserService;
 
 public class ViewAllBalancesOption implements IMenuOption {
     public String getDisplayString() {
-        return "View all account balances (Admin)";
+        return "View All Account Balances (Admin)";
     }
 
     public void execute(){
