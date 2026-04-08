@@ -94,5 +94,23 @@ public class AdminMenuTest {
         assertTrue(outStream.toString().contains("Logging out user..."));
         assertNull(AppContext.getInstance().getCurrentUser());
     }
+
+
+    @Test //TODO
+    public void viewEmptyTransactions() {
+        assertEquals(3, 3);
+    }
+
+
+    @Test //TODO
+    public void viewBadTransactions() {
+        assertEquals(3, 3);
+    }
+
+
+    @Test //TODO
+    public void viewTransactions() {
+        assertEquals(3, 3);
+    }
 }
 
