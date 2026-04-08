@@ -16,6 +16,7 @@ public class AdminMenu extends AbstractMenu {
         addMenuOption(new AddInterestPaymentOption());
         addMenuOption(new CreateFeesOption());
         addMenuOption(new CollectFeesOption());
+        addMenuOption(new ViewAllBalancesOption());
     }
 
     @Override
