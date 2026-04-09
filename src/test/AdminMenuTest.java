@@ -126,6 +126,8 @@ public class AdminMenuTest {
         simulateInput("35\n");
         deposit.execute();
 
+        User testUser = UserService.getInstance().authenticate("testAdmin", "testPassword");
+        ctx.setCurrentUser(testUser);
         int getBalancesSelection = menu.getMenuOptions().size();
         menu.processInput(getBalancesSelection);
         assertTrue(outStream.toString().contains("Account #1: $25")); 
