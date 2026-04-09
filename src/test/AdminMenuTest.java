@@ -9,6 +9,8 @@ import java.util.List;
 import main.AppContext;
 import main.Menus.AbstractMenu;
 import main.Menus.AdminMenu;
+import main.Menus.MenuOptions.AddAccountOption;
+import main.Menus.MenuOptions.DepositOption;
 import main.Menus.MenuOptions.IMenuOption;
 import main.Users.User;
 import main.Users.UserRole;
@@ -63,7 +65,7 @@ public class AdminMenuTest {
         assertEquals(UserRole.Administrator, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(3, options.size());
+        assertEquals(4, options.size());
     }
 
     @Test
@@ -75,6 +77,7 @@ public class AdminMenuTest {
         assertTrue(output.contains("1. Add interest payment (Admin)"));
         assertTrue(output.contains("2. Create Fees (Admin)"));
         assertTrue(output.contains("3. Collect fees (Admin)"));
+        assertTrue(output.contains("4. View All Account Balances (Admin)"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
@@ -94,5 +97,42 @@ public class AdminMenuTest {
         assertTrue(outStream.toString().contains("Logging out user..."));
         assertNull(AppContext.getInstance().getCurrentUser());
     }
+
+    @Test
+    public void testNoBalance() {
+        int getBalancesSelection = menu.getMenuOptions().size();
+        menu.processInput(getBalancesSelection);
+        assertTrue(outStream.toString().contains("There are no active accounts right now."));  
+    }
+
+    @Test
+    public void testViewBalances() {
+        IMenuOption add = new AddAccountOption();
+        IMenuOption deposit = new DepositOption();
+       
+        UserService.getInstance().registerUser("customerOne", "passwordOne", UserRole.Customer);
+        User customerOne = UserService.getInstance().authenticate("customerOne", "passwordOne");
+        
+        UserService.getInstance().registerUser("customerTwo", "passwordTwo", UserRole.Customer);
+        User customerTwo = UserService.getInstance().authenticate("customerTwo", "passwordTwo");
+
+        ctx.setCurrentUser(customerOne);
+        add.execute();
+        simulateInput("25\n");
+        deposit.execute();
+
+        ctx.setCurrentUser(customerTwo);
+        add.execute();
+        simulateInput("35\n");
+        deposit.execute();
+
+        User testUser = UserService.getInstance().authenticate("testAdmin", "testPassword");
+        ctx.setCurrentUser(testUser);
+        int getBalancesSelection = menu.getMenuOptions().size();
+        menu.processInput(getBalancesSelection);
+        assertTrue(outStream.toString().contains("Account #1: $25")); 
+        assertTrue(outStream.toString().contains("Account #2: $35"));  
+    }
 }
+    
 
