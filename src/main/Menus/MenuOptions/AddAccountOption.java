@@ -13,9 +13,8 @@ public class AddAccountOption implements IMenuOption {
         AppContext ctx = AppContext.getInstance();
         BankAccount newAccount;
         
-        System.out.println("Checkings or Savings? (C/S)");
         
-        String input = InputUtils.getStringUntil("Enter account type: ", "Please enter 'C' for Checkings or 'S' for Savings.", s -> {
+        String input = InputUtils.getStringUntil("Checkings or Savings? (C/S)", "Please enter 'C' for Checkings or 'S' for Savings.", s -> {
             String lower = s.toLowerCase();
             return lower.equals("c") || lower.equals("s");
         });
