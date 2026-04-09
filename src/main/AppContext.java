@@ -29,15 +29,7 @@ public class AppContext {
 
     public void setCurrentUser(User user) {
         currentUser = user;
-        if(user == null) { 
-            selectedAccount = null;
-            return;
-        } 
-        else if(!user.getAccountIds().isEmpty()) {
-            selectedAccount = allAccounts.getAccount(user.getAccountIds().get(0));
-        } else {
-            selectedAccount = null;
-        }
+        selectedAccount = null; // reset selected account whenever we switch users
     }
 
     public BankAccount getSelectedAccount() {
