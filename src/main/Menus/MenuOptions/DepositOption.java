@@ -17,7 +17,6 @@ public class DepositOption implements IMenuOption {
         double amount = InputUtils.getDoubleUntil("How much would you like to deposit: ",
             "Please enter a positive deposit amount",
             d->d > 0);
-        System.out.println("Successfully Deposited $" + amount);
         ctx.getSelectedAccount().deposit(amount);
     }
 }

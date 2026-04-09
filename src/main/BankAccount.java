@@ -65,6 +65,7 @@ public class BankAccount {
             transactions.addTransaction(
                 new Transaction(amount, "Deposit", "Depositing " + amount)
             );
+            System.out.println("Successfully Deposited $" + amount);
         } 
         else {
             throw new IllegalArgumentException("Deposit must be positive");
