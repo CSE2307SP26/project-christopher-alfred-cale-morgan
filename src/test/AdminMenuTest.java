@@ -63,7 +63,7 @@ public class AdminMenuTest {
         assertEquals(UserRole.Administrator, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(3, options.size());
+        assertEquals(4, options.size());
     }
 
     @Test
@@ -95,22 +95,5 @@ public class AdminMenuTest {
         assertNull(AppContext.getInstance().getCurrentUser());
     }
 
-
-    @Test //TODO
-    public void viewEmptyTransactions() {
-        assertEquals(3, 3);
-    }
-
-
-    @Test //TODO
-    public void viewBadTransactions() {
-        assertEquals(3, 3);
-    }
-
-
-    @Test //TODO
-    public void viewTransactions() {
-        assertEquals(3, 3);
-    }
 }
 
