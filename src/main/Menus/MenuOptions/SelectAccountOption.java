@@ -16,13 +16,16 @@ public class SelectAccountOption implements IMenuOption {
             return;
         }
         for(int accountId : currentUser.getAccountIds()) {
-            System.out.println("Account ID: " + accountId);
+            System.out.println(AppContext.getInstance().getAllAccounts().getAccount(accountId).getAccountType() + " | Account ID: " + accountId);
         }
+        System.out.println();
 
         int accountId = InputUtils.getIntUntil("Enter the account ID you want to select: ",
             "Please enter a valid account ID",
             id -> AppContext.getInstance().getCurrentUser().getAccountIds().contains(id));
         AppContext.getInstance().setSelectedAccount(AppContext.getInstance().getAllAccounts().getAccount(accountId));
+
+        System.out.println("Selected account #" + accountId);
 
     }
     

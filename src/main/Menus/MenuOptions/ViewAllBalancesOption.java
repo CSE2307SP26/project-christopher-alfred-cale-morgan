@@ -34,8 +34,7 @@ public class ViewAllBalancesOption implements IMenuOption {
                 }
                 for(int id : user.getAccountIds()){
                     BankAccount account = allAccounts.getAccount(id);
-                    System.out.println("    Account #" + account.getId() + ": $" + account.getBalance());
-                    //TODO: Once we implement different account types, it may be useful to include that information in this string too
+                    System.out.println("    " + account.getAccountType() + " | Account #" + account.getId() + ": $" + account.getBalance());
                 }
                 System.out.println();
             }
