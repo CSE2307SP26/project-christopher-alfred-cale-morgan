@@ -12,6 +12,7 @@ import main.Menus.AdminMenu;
 import main.Menus.MenuOptions.AddAccountOption;
 import main.Menus.MenuOptions.DepositOption;
 import main.Menus.MenuOptions.IMenuOption;
+import main.Menus.MenuOptions.SelectAccountOption;
 import main.Users.User;
 import main.Users.UserRole;
 import main.Users.UserService;
@@ -110,6 +111,7 @@ public class AdminMenuTest {
     public void testViewBalances() {
         IMenuOption add = new AddAccountOption();
         IMenuOption deposit = new DepositOption();
+        IMenuOption select = new SelectAccountOption();
        
         UserService.getInstance().registerUser("customerOne", "passwordOne", UserRole.Customer);
         User customerOne = UserService.getInstance().authenticate("customerOne", "passwordOne");
@@ -120,12 +122,16 @@ public class AdminMenuTest {
         ctx.setCurrentUser(customerOne);
         simulateInput("C\n");
         add.execute();
+        simulateInput("1\n");
+        select.execute();
         simulateInput("25\n");
         deposit.execute();
 
         ctx.setCurrentUser(customerTwo);
         simulateInput("C\n");
         add.execute();
+        simulateInput("2\n");
+        select.execute();
         simulateInput("35\n");
         deposit.execute();
 
