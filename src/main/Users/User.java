@@ -61,9 +61,6 @@ public class User {
         this.limitsRequested.addRequest(req);
     }
 
-    public void finishRequest(UserLimitRequest req) {
-        this.limitsRequested.removeRequest(req);
-    }
 
 
     /***
