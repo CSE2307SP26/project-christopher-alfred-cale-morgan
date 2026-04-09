@@ -65,7 +65,7 @@ public class AdminMenuTest {
         assertEquals(UserRole.Administrator, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(4, options.size());
+        assertEquals(5, options.size());
     }
 
     @Test
@@ -77,7 +77,8 @@ public class AdminMenuTest {
         assertTrue(output.contains("1. Add interest payment (Admin)"));
         assertTrue(output.contains("2. Create Fees (Admin)"));
         assertTrue(output.contains("3. Collect fees (Admin)"));
-        assertTrue(output.contains("4. View All Account Balances (Admin)"));
+        assertTrue(output.contains("4. View Transaction History (Admin)"));
+        assertTrue(output.contains("5. View All Account Balances (Admin)"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
