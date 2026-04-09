@@ -13,8 +13,16 @@ public class BankAccounts {
         nextId = 1;
     }
 
-    public BankAccount createAccount() {
-        BankAccount account = new BankAccount(nextId);
+    
+    public BankAccount createCheckingAccount() {
+        BankAccount account = new CheckingAccount(nextId);
+        accounts.put(nextId, account);
+        nextId++;
+        return account;
+    }
+
+    public BankAccount createSavingsAccount() {
+        BankAccount account = new SavingsAccount(nextId);
         accounts.put(nextId, account);
         nextId++;
         return account;
@@ -23,4 +31,5 @@ public class BankAccounts {
     public BankAccount getAccount(int id) {
         return accounts.get(id);
     }
+    public int getNumAccounts() { return accounts.size(); }
 }
