@@ -8,6 +8,7 @@ public class BankAccount {
     private int id;
     private Transactions transactions;
     private double interestRate;
+    private boolean isFrozen;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
@@ -17,6 +18,7 @@ public class BankAccount {
         this.balance = 0;
         this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
+        isFrozen= false;
     }
 
     public double getInterestRate() {
@@ -56,12 +58,16 @@ public class BankAccount {
     }
 
     public void deposit(double amount) {
+        if(isFrozen)
+            throw new IllegalArgumentException("Account is Frozen");
         if (amount > 0) {
             balance += amount;
             transactions.addTransaction(
                 new Transaction(amount, "Deposit", "Depositing " + amount)
             );
-        } else {
+            System.out.println("Successfully Deposited $" + amount);
+        } 
+        else {
             throw new IllegalArgumentException("Deposit must be positive");
         }
     }
@@ -79,10 +85,12 @@ public class BankAccount {
     }
 
     public void withdraw(double amount) {
-        if(amount < 0.0f)
+        if(amount < 0.0f )
             throw new IllegalArgumentException("Withdrawal must be positive");
         if((this.balance - amount) < 0.0f)
             throw new IllegalArgumentException("Not enough funds");
+        if(isFrozen)
+            throw new IllegalArgumentException("Account is Frozen");
 
         this.balance -= amount;
         transactions.addTransaction(
@@ -94,11 +102,11 @@ public class BankAccount {
         if (other == null) {
             throw new IllegalArgumentException("Target account does not exist");
         }
-
-        //Is this something we want? I removed it for now cus testing w/1 account
-        // if (this == other) {
-        //     throw new IllegalArgumentException("Cannot transfer to the same account");
-        // }
+        if(isFrozen || other.isFrozen)
+            throw new IllegalArgumentException("Account is Frozen");
+        if (this == other) {
+            throw new IllegalArgumentException("Cannot transfer to the same account");
+        }
 
         if (amount <= 0 || balance < amount) {
             throw new IllegalArgumentException("Invalid transfer amount");
@@ -125,5 +133,13 @@ public class BankAccount {
 
     public double getFees() {
         return this.accountFees;
+    }
+
+    public void freeze() {
+        isFrozen = !isFrozen;
+    }
+
+    public boolean getFrozen() {
+        return isFrozen;
     }
 }

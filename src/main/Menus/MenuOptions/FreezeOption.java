@@ -3,9 +3,9 @@ package main.Menus.MenuOptions;
 import main.AppContext;
 import main.Utils.InputUtils;
 
-public class DepositOption implements IMenuOption {
+public class FreezeOption implements IMenuOption {
     public String getDisplayString() {
-        return "Make a deposit";
+        return "Freeze/Unfreeze Account";
     }
 
     public void execute() {
@@ -14,9 +14,12 @@ public class DepositOption implements IMenuOption {
             System.out.println("No accounts yet, please make one first.");
             return;
         }
-        double amount = InputUtils.getDoubleUntil("How much would you like to deposit: ",
-            "Please enter a positive deposit amount",
-            d->d > 0);
-        ctx.getSelectedAccount().deposit(amount);
+        
+        if(ctx.getSelectedAccount().getFrozen())
+        System.out.println("Successfully Unfrozen");
+        else
+        System.out.println("Successfully Frozen");
+
+        ctx.getSelectedAccount().freeze();
     }
 }
