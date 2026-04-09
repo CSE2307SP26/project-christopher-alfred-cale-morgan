@@ -131,4 +131,75 @@ public class BankAccountTest {
             () -> allAccounts.getAccount(1).payInterest()
         );
     }
+
+    @Test
+    public void testFrozenWithdrawl() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+
+        allAccounts.getAccount(1).deposit(250);
+        allAccounts.getAccount(1).freeze();
+        
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).withdraw(100)
+        );
+        
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(250, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
+    @Test
+    public void testFrozenDeposit() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+
+        allAccounts.getAccount(1).deposit(250);
+        allAccounts.getAccount(1).freeze();
+        
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).deposit(100)
+        );
+        
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(250, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
+    @Test
+    public void testFrozenTransferTo() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        allAccounts.createAccount();
+
+
+        allAccounts.getAccount(1).deposit(250);
+        allAccounts.getAccount(2).deposit(250);
+
+        allAccounts.getAccount(1).freeze();
+        
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).transfer(100,allAccounts.getAccount(2))
+        );
+        
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(250, allAccounts.getAccount(1).getBalance(), 0.01);
+    }
+
+    @Test
+    public void testFrozenTransferFrom() {
+        BankAccounts allAccounts = new BankAccounts();
+        allAccounts.createAccount();
+        allAccounts.createAccount();
+
+
+        allAccounts.getAccount(1).deposit(250);
+        allAccounts.getAccount(2).deposit(250);
+        allAccounts.getAccount(2).freeze();
+        
+        assertThrows(IllegalArgumentException.class,
+            () -> allAccounts.getAccount(1).transfer(100,allAccounts.getAccount(2))
+        );
+        
+        // ensure balance was not changed after invalid withdrawal
+        assertEquals(250, allAccounts.getAccount(2).getBalance(), 0.01);
+    }
 }

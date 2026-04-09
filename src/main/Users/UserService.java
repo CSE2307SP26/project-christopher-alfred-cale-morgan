@@ -62,4 +62,9 @@ public class UserService {
     public void reset() {
         users.clear();
     }
+
+    // Should only be used by admin functions
+    public static Map<String, User> getUsers(){
+        return users;
+    }
 }
