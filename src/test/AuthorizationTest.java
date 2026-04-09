@@ -66,7 +66,7 @@ public class AuthorizationTest {
     public void testAdminCanCreateFees() {
         this.ctx.setCurrentUser(this.admin);
         CreateFeesOption option = new CreateFeesOption();
-        BankAccount newAccount = ctx.getAllAccounts().createAccount();
+        BankAccount newAccount = ctx.getAllAccounts().createCheckingAccount();
         customer.addAccountId(newAccount.getId());
         String userInput = newAccount.getId() + "\n25.50\n"; // Account #, Fee of $25.50
         InputUtils.setInputStream(new ByteArrayInputStream(userInput.getBytes()));
@@ -77,7 +77,7 @@ public class AuthorizationTest {
     public void testAdminCanCollectFees() {
         this.ctx.setCurrentUser(this.admin);
         CollectFeesOption option = new CollectFeesOption();
-        BankAccount newAccount = ctx.getAllAccounts().createAccount();
+        BankAccount newAccount = ctx.getAllAccounts().createCheckingAccount();
         customer.addAccountId(newAccount.getId());
         String userInput = newAccount.getId() + "\n"; // Account #
         ctx.getAllAccounts().getAccount(newAccount.getId()).deposit(100);
@@ -93,7 +93,7 @@ public class AuthorizationTest {
         this.ctx.setCurrentUser(this.admin);
         AddInterestPaymentOption option = new AddInterestPaymentOption();
 
-        BankAccount newAccount = ctx.getAllAccounts().createAccount();
+        BankAccount newAccount = ctx.getAllAccounts().createCheckingAccount();
         customer.addAccountId(newAccount.getId());
         String userInput = newAccount.getId() + "\n"; // Account #
 

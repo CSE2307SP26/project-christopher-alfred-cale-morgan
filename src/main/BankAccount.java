@@ -1,14 +1,15 @@
 package main;
 
-public class BankAccount {
+public abstract class BankAccount {
 
 
     private double balance;
     private double accountFees;
     private int id;
     private Transactions transactions;
-    private double interestRate;
+    protected double interestRate;
     private boolean isFrozen;
+    protected AccountType accountType;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
@@ -19,8 +20,13 @@ public class BankAccount {
         this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
         isFrozen= false;
+        accountType = null;
     }
 
+    public AccountType getAccountType() {
+        return this.accountType;
+    }
+    
     public double getInterestRate() {
         return this.interestRate;
     }

@@ -38,7 +38,7 @@ public class CustomerMenuTest {
         User testUser = UserService.getInstance().authenticate("testCustomer", "testPassword");
         ctx.setCurrentUser(testUser);
 
-        BankAccount testAccount = ctx.getAllAccounts().createAccount();
+        BankAccount testAccount = ctx.getAllAccounts().createCheckingAccount();
         testUser.addAccountId(testAccount.getId());
         ctx.setSelectedAccount(testAccount);
         
@@ -67,7 +67,7 @@ public class CustomerMenuTest {
         assertEquals(UserRole.Customer, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(8, options.size());
+        assertEquals(9, options.size());
     }
 
     @Test
