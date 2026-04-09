@@ -38,7 +38,7 @@ public class CustomerMenuTest {
         User testUser = UserService.getInstance().authenticate("testCustomer", "testPassword");
         ctx.setCurrentUser(testUser);
 
-        BankAccount testAccount = ctx.getAllAccounts().createAccount();
+        BankAccount testAccount = ctx.getAllAccounts().createCheckingAccount();
         testUser.addAccountId(testAccount.getId());
         ctx.setSelectedAccount(testAccount);
         

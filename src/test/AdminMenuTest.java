@@ -118,11 +118,13 @@ public class AdminMenuTest {
         User customerTwo = UserService.getInstance().authenticate("customerTwo", "passwordTwo");
 
         ctx.setCurrentUser(customerOne);
+        simulateInput("C\n");
         add.execute();
         simulateInput("25\n");
         deposit.execute();
 
         ctx.setCurrentUser(customerTwo);
+        simulateInput("C\n");
         add.execute();
         simulateInput("35\n");
         deposit.execute();

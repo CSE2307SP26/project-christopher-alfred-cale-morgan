@@ -44,7 +44,7 @@ public class AppContextTest {
         this.service.registerUser("activeUser", "password", UserRole.Customer);
         User user = this.service.authenticate("activeUser", "password");
         
-        BankAccount newAccount = this.ctx.getAllAccounts().createAccount();
+        BankAccount newAccount = this.ctx.getAllAccounts().createCheckingAccount();
         user.addAccountId(newAccount.getId());
 
         this.ctx.setCurrentUser(user);
