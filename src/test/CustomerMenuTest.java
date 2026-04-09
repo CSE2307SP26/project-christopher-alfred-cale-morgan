@@ -67,7 +67,7 @@ public class CustomerMenuTest {
         assertEquals(UserRole.Customer, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(8, options.size());
+        assertEquals(9, options.size());
     }
 
     @Test

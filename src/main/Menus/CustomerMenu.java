@@ -21,6 +21,7 @@ public class CustomerMenu extends AbstractMenu {
         addMenuOption(new ViewPersonalFeesOption());
         addMenuOption(new ViewHistoryOption());
         addMenuOption(new FreezeOption());
+        addMenuOption(new SelectAccountOption());
         // TODO: Add a MenuOption implementation to switch user accounts
     }
 
