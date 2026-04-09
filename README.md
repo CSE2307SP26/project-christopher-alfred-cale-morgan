@@ -49,3 +49,8 @@ Command Prompt:
 ```Bash
 > runApp.sh
 ```
+
+## NOTE:
+We didn't allow users to create admin accounts, for obvious reasons. Any account can be manually created with admin flag, but we hardcoded one for testing. Login with the following info:
+Username: admin 
+Password: password
