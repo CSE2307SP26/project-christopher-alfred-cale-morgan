@@ -26,7 +26,6 @@ public class AddAccountOption implements IMenuOption {
         }
 
         ctx.getCurrentUser().addAccountId(newAccount.getId());
-        ctx.setSelectedAccount(newAccount);
 
         System.out.println("Successfully opened new account (# " + newAccount.getId() + ")");
     }
