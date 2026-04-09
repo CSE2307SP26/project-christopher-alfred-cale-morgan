@@ -9,6 +9,7 @@ public class BankAccount {
     private Transactions transactions;
     private double interestRate;
     private boolean isFrozen;
+    private double widthdrawlLimit;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
     
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
@@ -19,6 +20,7 @@ public class BankAccount {
         this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new Transactions();
         isFrozen= false;
+        this.widthdrawlLimit = -1;
     }
 
     public double getInterestRate() {
@@ -141,5 +143,9 @@ public class BankAccount {
 
     public boolean getFrozen() {
         return isFrozen;
+    }
+
+    public double getLimit() {
+        return widthdrawlLimit;
     }
 }
