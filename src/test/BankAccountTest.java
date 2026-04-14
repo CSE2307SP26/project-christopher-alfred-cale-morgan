@@ -1,7 +1,7 @@
 package test;
 
 import main.BankAccount;
-import main.BankAccounts;
+import main.BankAccountManager;
 import main.CheckingAccount;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +12,7 @@ public class BankAccountTest {
 
     @Test
     public void testCheckBalance() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         assertEquals(0.0, allAccounts.getAccount(1).getBalance(), 0.01);
         allAccounts.getAccount(1).deposit(50);
@@ -25,7 +25,7 @@ public class BankAccountTest {
 
     @Test
     public void testDeposit() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         allAccounts.getAccount(1).deposit(50);
         assertEquals(50, allAccounts.getAccount(1).getBalance(), 0.01);
@@ -33,7 +33,7 @@ public class BankAccountTest {
 
     @Test
     public void testInvalidDeposit() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         assertThrows(IllegalArgumentException.class, 
             () -> allAccounts.getAccount(1).deposit(-50)
@@ -42,7 +42,7 @@ public class BankAccountTest {
 
     @Test
     public void testWithdrawal() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
 
         allAccounts.getAccount(1).deposit(100);
@@ -52,7 +52,7 @@ public class BankAccountTest {
 
     @Test
     public void testTooBigWithdrawal() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
 
         allAccounts.getAccount(1).deposit(50);
@@ -67,7 +67,7 @@ public class BankAccountTest {
 
     @Test
     public void testNegativeWithdrawal() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
 
         allAccounts.getAccount(1).deposit(50);
@@ -81,7 +81,7 @@ public class BankAccountTest {
 
     @Test
     public void testTransfer() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
 
         allAccounts.createCheckingAccount();
         allAccounts.createCheckingAccount();
@@ -93,7 +93,7 @@ public class BankAccountTest {
 
     @Test
     public void testInvalidTransfer() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
 
         allAccounts.createCheckingAccount();
         allAccounts.createCheckingAccount();
@@ -117,7 +117,7 @@ public class BankAccountTest {
 
     @Test
     public void addInterestPaymentChecking() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         allAccounts.getAccount(1).deposit(100);
         allAccounts.getAccount(1).payInterest();
@@ -126,7 +126,7 @@ public class BankAccountTest {
 
     @Test
     public void addInterestPaymentSavings() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createSavingsAccount();
         allAccounts.getAccount(1).deposit(100);
         allAccounts.getAccount(1).payInterest();
@@ -135,7 +135,7 @@ public class BankAccountTest {
 
     @Test
     public void addInterestPaymentFail() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         assertThrows(IllegalArgumentException.class,
             () -> allAccounts.getAccount(1).payInterest()
@@ -144,7 +144,7 @@ public class BankAccountTest {
 
     @Test
     public void testFrozenWithdrawl() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
 
         allAccounts.getAccount(1).deposit(250);
@@ -160,7 +160,7 @@ public class BankAccountTest {
 
     @Test
     public void testFrozenDeposit() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
 
         allAccounts.getAccount(1).deposit(250);
@@ -176,7 +176,7 @@ public class BankAccountTest {
 
     @Test
     public void testFrozenTransferTo() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         allAccounts.createCheckingAccount();
 
@@ -196,7 +196,7 @@ public class BankAccountTest {
 
     @Test
     public void testFrozenTransferFrom() {
-        BankAccounts allAccounts = new BankAccounts();
+        BankAccountManager allAccounts = new BankAccountManager();
         allAccounts.createCheckingAccount();
         allAccounts.createCheckingAccount();
 
