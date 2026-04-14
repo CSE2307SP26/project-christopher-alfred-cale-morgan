@@ -6,7 +6,7 @@ public abstract class BankAccount {
     private double balance;
     private double accountFees;
     private int id;
-    private Transactions transactions;
+    private TransactionHistory transactions;
     protected double interestRate;
     private boolean isFrozen;
     protected AccountType accountType;
@@ -18,7 +18,7 @@ public abstract class BankAccount {
         this.id = id;
         this.balance = 0;
         this.interestRate = DEFAULT_INTEREST_RATE;
-        this.transactions = new Transactions();
+        this.transactions = new TransactionHistory();
         isFrozen= false;
         accountType = null;
     }
@@ -59,7 +59,7 @@ public abstract class BankAccount {
         return this.balance;
     }
 
-    public Transactions getTransactions() {
+    public TransactionHistory getTransactions() {
         return transactions;
     }
 
