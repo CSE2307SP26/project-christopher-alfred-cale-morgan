@@ -11,7 +11,8 @@ public abstract class BankAccount {
     private boolean isFrozen;
     protected AccountType accountType;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
-    
+    private String accountNickname;
+
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
     public BankAccount(int id) {
@@ -21,6 +22,7 @@ public abstract class BankAccount {
         this.transactions = new TransactionHistory();
         isFrozen= false;
         accountType = null;
+        accountNickname = "";
     }
 
     public AccountType getAccountType() {
@@ -147,5 +149,13 @@ public abstract class BankAccount {
 
     public boolean getFrozen() {
         return isFrozen;
+    }
+
+    public void setAccountNickname(String newNickname) {
+        this.accountNickname = newNickname;
+    }
+
+    public String getAccountNickname() {
+        return this.accountNickname;
     }
 }

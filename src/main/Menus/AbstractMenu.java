@@ -3,6 +3,8 @@ package main.Menus;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.AppContext;
+import main.BankAccount;
 import main.Menus.MenuOptions.IMenuOption;
 import main.Utils.InputUtils;
 
@@ -11,6 +13,7 @@ public abstract class AbstractMenu {
     private boolean isRunning;
     private String menuTitle;
     private String exitOptionText;
+    private String nicknameString = "";
 
     public AbstractMenu(String menuTitle, String exitOptionText) {
         this.menuTitle = menuTitle;
@@ -18,7 +21,18 @@ public abstract class AbstractMenu {
     }
 
     public void displayOptions() {
+        AppContext ctx = AppContext.getInstance();
+        BankAccount selectedAccount = ctx.getSelectedAccount();
+        if(selectedAccount != null) {
+            if(!selectedAccount.getAccountNickname().equals(""))
+            this.nicknameString = " (" + ctx.getSelectedAccount().getAccountNickname() + ")";
+        } else {
+            this.nicknameString = "";
+        }
         System.out.println("\n--- " + menuTitle + " ---");
+        System.out.println(
+            ctx.getSelectedAccount() == null ? "No account selected" 
+            : "Account #" + selectedAccount.getId() + this.nicknameString);
         for(int i = 1; i <= options.size(); i++) {
 
             // options start at 0 but menu starts at 1
