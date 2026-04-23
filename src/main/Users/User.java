@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.UserLimitRequest;
-import main.UserRequests;
+import main.UserRequestManager;
+import main.UserLimitRequest;
 
 public class User {
 
@@ -15,13 +16,13 @@ public class User {
 
     private List<Integer> accountIds;
 
-    private UserRequests limitsRequested;
+    private UserRequestManager limitsRequested;
 
     protected User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.limitsRequested = new UserRequests();
+        this.limitsRequested = new UserRequestManager();
         this.accountIds = new ArrayList<>();
     }
 
@@ -53,7 +54,7 @@ public class User {
         return accountIds;
     }
 
-    public UserRequests getUserLimitsRequested() {
+    public UserRequestManager getUserLimitsRequested() {
         return limitsRequested;
     }
 

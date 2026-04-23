@@ -100,6 +100,9 @@ public abstract class BankAccount {
         if(isFrozen)
             throw new IllegalArgumentException("Account is Frozen");
 
+        if(amount > widthdrawlLimit && widthdrawlLimit > 0)
+            throw new IllegalArgumentException("Amount over withdrawl limit");
+
         this.balance -= amount;
         transactions.addTransaction(
                 new Transaction(amount, "Withdrawal", "Withdrawing " + amount)
@@ -153,5 +156,9 @@ public abstract class BankAccount {
 
     public double getLimit() {
         return widthdrawlLimit;
+    }
+
+    public void setLimit(double lim) {
+        this.widthdrawlLimit = lim; 
     }
 }
