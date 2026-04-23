@@ -9,6 +9,7 @@ public abstract class BankAccount {
     private TransactionHistory transactions;
     protected double interestRate;
     private boolean isFrozen;
+    private double widthdrawlLimit;
     protected AccountType accountType;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
     private String accountNickname;
@@ -21,6 +22,7 @@ public abstract class BankAccount {
         this.interestRate = DEFAULT_INTEREST_RATE;
         this.transactions = new TransactionHistory();
         isFrozen= false;
+        this.widthdrawlLimit = -1;
         accountType = null;
         accountNickname = "";
     }
@@ -100,6 +102,9 @@ public abstract class BankAccount {
         if(isFrozen)
             throw new IllegalArgumentException("Account is Frozen");
 
+        if(amount > widthdrawlLimit && widthdrawlLimit > 0)
+            throw new IllegalArgumentException("Amount over withdrawl limit");
+
         this.balance -= amount;
         transactions.addTransaction(
                 new Transaction(amount, "Withdrawal", "Withdrawing " + amount)
@@ -157,5 +162,13 @@ public abstract class BankAccount {
 
     public String getAccountNickname() {
         return this.accountNickname;
+    }
+  
+    public double getLimit() {
+        return widthdrawlLimit;
+    }
+
+    public void setLimit(double lim) {
+        this.widthdrawlLimit = lim; 
     }
 }

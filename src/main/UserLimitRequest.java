@@ -20,7 +20,7 @@ public class UserLimitRequest {
     public UserLimitRequest(int accountIdRequested, double requestedLimit) {
 
         this.requestedLimit = requestedLimit;
-        this.accountIdRequested= accountIdRequested;
+        this.accountIdRequested = accountIdRequested;
 
 
     }
