@@ -31,5 +31,9 @@ public class BankAccountManager {
     public BankAccount getAccount(int id) {
         return accounts.get(id);
     }
+
+    public BankAccount deleteAccount(int id) {
+        return accounts.remove(id);
+    }
     public int getNumAccounts() { return accounts.size(); }
 }

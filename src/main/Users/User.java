@@ -3,6 +3,8 @@ package main.Users;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.BankAccount;
+
 public class User {
 
     private String username; 
@@ -59,5 +61,9 @@ public class User {
         } else {
             return false;
         }
+    }
+
+    public boolean removeAccount(Integer id) {
+        return this.accountIds.remove(id);
     }
 }
