@@ -11,8 +11,12 @@ public class TransferOption implements IMenuOption {
 
     public void execute() {
         AppContext ctx = AppContext.getInstance();
-        if(ctx.getSelectedAccount() == null) {
+        if(ctx.getCurrentUser().getAccountIds().isEmpty()) {
             System.out.println("No accounts yet, please make one first.");
+            return;
+        }
+        else if(ctx.getSelectedAccount() == null) {
+            System.out.println("Please select an account first.");
             return;
         }
         double transferAmount = InputUtils.getDoubleUntil("How much would you like to transfer: ",

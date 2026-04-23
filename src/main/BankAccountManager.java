@@ -3,18 +3,26 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankAccounts {
+public class BankAccountManager {
 
     private Map<Integer, BankAccount> accounts;
     private int nextId;
 
-    public BankAccounts() {
+    public BankAccountManager() {
         accounts = new HashMap<>();
         nextId = 1;
     }
 
-    public BankAccount createAccount() {
-        BankAccount account = new BankAccount(nextId);
+    
+    public BankAccount createCheckingAccount() {
+        BankAccount account = new CheckingAccount(nextId);
+        accounts.put(nextId, account);
+        nextId++;
+        return account;
+    }
+
+    public BankAccount createSavingsAccount() {
+        BankAccount account = new SavingsAccount(nextId);
         accounts.put(nextId, account);
         nextId++;
         return account;

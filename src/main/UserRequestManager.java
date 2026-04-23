@@ -3,11 +3,11 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRequests {
+public class UserRequestManager {
 
     private List<UserLimitRequest> requests;
 
-    public UserRequests() {
+    public UserRequestManager() {
         requests = new ArrayList<>();
     }
 

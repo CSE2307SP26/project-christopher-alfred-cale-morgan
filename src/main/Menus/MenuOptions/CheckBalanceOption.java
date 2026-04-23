@@ -10,8 +10,11 @@ public class CheckBalanceOption implements IMenuOption {
     public void execute() {
         AppContext ctx = AppContext.getInstance();
 
-        if (ctx.getSelectedAccount() == null) {
+        if (ctx.getCurrentUser().getAccountIds().isEmpty()) {
             System.out.println("No accounts yet, please make one first.");
+        }
+        else if(ctx.getSelectedAccount() == null) {
+            System.out.println("Please select an account first.");
         }
         else {
             System.out.println("Current balance: $" + ctx.getSelectedAccount().getBalance());

@@ -3,11 +3,11 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Transactions {
+public class TransactionHistory {
 
     private List<Transaction> transactions;
 
-    public Transactions() {
+    public TransactionHistory() {
         transactions = new ArrayList<>();
     }
 

@@ -44,11 +44,12 @@ public class AppContextTest {
         this.service.registerUser("activeUser", "password", UserRole.Customer);
         User user = this.service.authenticate("activeUser", "password");
         
-        BankAccount newAccount = this.ctx.getAllAccounts().createAccount();
+        BankAccount newAccount = this.ctx.getAllAccounts().createCheckingAccount();
         user.addAccountId(newAccount.getId());
 
         this.ctx.setCurrentUser(user);
-        
+        this.ctx.setSelectedAccount(newAccount); // Manually set selected account since we're bypassing UserService
+
         assertEquals(user, this.ctx.getCurrentUser());
         assertNotNull(this.ctx.getSelectedAccount());
         assertEquals(newAccount.getId(), this.ctx.getSelectedAccount().getId()); // selected account should automatically be updated

@@ -12,6 +12,7 @@ import main.Menus.AdminMenu;
 import main.Menus.MenuOptions.AddAccountOption;
 import main.Menus.MenuOptions.DepositOption;
 import main.Menus.MenuOptions.IMenuOption;
+import main.Menus.MenuOptions.SelectAccountOption;
 import main.Users.User;
 import main.Users.UserRole;
 import main.Users.UserService;
@@ -65,7 +66,7 @@ public class AdminMenuTest {
         assertEquals(UserRole.Administrator, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(4, options.size());
+        assertEquals(5, options.size());
     }
 
     @Test
@@ -77,7 +78,8 @@ public class AdminMenuTest {
         assertTrue(output.contains("1. Add interest payment (Admin)"));
         assertTrue(output.contains("2. Create Fees (Admin)"));
         assertTrue(output.contains("3. Collect fees (Admin)"));
-        assertTrue(output.contains("4. View All Account Balances (Admin)"));
+        assertTrue(output.contains("4. View Transaction History (Admin)"));
+        assertTrue(output.contains("5. View All Account Balances (Admin)"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
@@ -109,6 +111,7 @@ public class AdminMenuTest {
     public void testViewBalances() {
         IMenuOption add = new AddAccountOption();
         IMenuOption deposit = new DepositOption();
+        IMenuOption select = new SelectAccountOption();
        
         UserService.getInstance().registerUser("customerOne", "passwordOne", UserRole.Customer);
         User customerOne = UserService.getInstance().authenticate("customerOne", "passwordOne");
@@ -117,12 +120,18 @@ public class AdminMenuTest {
         User customerTwo = UserService.getInstance().authenticate("customerTwo", "passwordTwo");
 
         ctx.setCurrentUser(customerOne);
+        simulateInput("C\n");
         add.execute();
+        simulateInput("1\n");
+        select.execute();
         simulateInput("25\n");
         deposit.execute();
 
         ctx.setCurrentUser(customerTwo);
+        simulateInput("C\n");
         add.execute();
+        simulateInput("2\n");
+        select.execute();
         simulateInput("35\n");
         deposit.execute();
 

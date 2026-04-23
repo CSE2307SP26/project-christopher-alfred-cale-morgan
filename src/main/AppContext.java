@@ -15,7 +15,7 @@ public class AppContext {
 
     private User currentUser;
     private BankAccount selectedAccount;
-    private BankAccounts allAccounts = new BankAccounts();
+    private BankAccountManager allAccounts = new BankAccountManager();
     private boolean exitCondition = false; // signals when to close the application
 
     public User getCurrentUser() {
@@ -29,15 +29,7 @@ public class AppContext {
 
     public void setCurrentUser(User user) {
         currentUser = user;
-        if(user == null) { 
-            selectedAccount = null;
-            return;
-        } 
-        else if(!user.getAccountIds().isEmpty()) {
-            selectedAccount = allAccounts.getAccount(user.getAccountIds().get(0));
-        } else {
-            selectedAccount = null;
-        }
+        selectedAccount = null; // reset selected account whenever we switch users
     }
 
     public BankAccount getSelectedAccount() {
@@ -48,7 +40,7 @@ public class AppContext {
         this.selectedAccount = userAccount;
     }
 
-    public BankAccounts getAllAccounts() {
+    public BankAccountManager getAllAccounts() {
         return allAccounts;
     }
 
@@ -63,7 +55,7 @@ public class AppContext {
     public void reset() {
         this.currentUser = null;
         this.selectedAccount = null;
-        this.allAccounts = new BankAccounts();
+        this.allAccounts = new BankAccountManager();
 
         this.exitCondition = false;
     }
