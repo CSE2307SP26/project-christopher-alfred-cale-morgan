@@ -1,43 +1,25 @@
 package main;
 
-
-public class UserLimitRequest {
-    
-    //TODO: Wont implement just yet!
-
-    // public enum RequestStatus {
-    //     PENDING,
-    //     APPROVED,
-    //     DENIED
-    // }
-
-
+public class UserLimitRequest extends UserRequest {
     private double requestedLimit;
-    private int accountIdRequested;
-    
-
 
     public UserLimitRequest(int accountIdRequested, double requestedLimit) {
-
+        super(accountIdRequested);
         this.requestedLimit = requestedLimit;
-        this.accountIdRequested = accountIdRequested;
-
-
     }
 
-
-    public int getAccountIdRequested() {
-        return this.accountIdRequested;
+    @Override
+    public double getRequestAmount() {
+        return requestedLimit;
     }
-    
 
-    public double getRequestedLimit() {
-        return this.requestedLimit;
+    @Override
+    public String getRequestType() {
+        return "Limit";
     }
-    
 
-
-
-
-
+    @Override
+    public void approve(BankAccountManager allAccounts) {
+        allAccounts.getAccount(accountIdRequested).setLimit(requestedLimit);
+    }
 }

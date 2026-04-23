@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserRequestManager {
-
-    private List<UserLimitRequest> requests;
+    private List<UserRequest> requests;
 
     public UserRequestManager() {
         requests = new ArrayList<>();
     }
 
-    public void addRequest(UserLimitRequest userRequest) {
+    public void addRequest(UserRequest userRequest) {
         requests.add(userRequest);
     }
 
-    public void removeRequest(UserLimitRequest userRequest) {
+    public void removeRequest(UserRequest userRequest) {
         requests.remove(userRequest);
     }
 
-    public List<UserLimitRequest> getAllRequests() {
+    public List<UserRequest> getAllRequests() {
         return requests;
     }
-
 }
