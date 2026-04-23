@@ -10,6 +10,7 @@ import main.AppContext;
 import main.BankAccount;
 import main.Menus.AbstractMenu;
 import main.Menus.CustomerMenu;
+import main.Menus.MenuOptions.ChangePasswordOption;
 import main.Menus.MenuOptions.IMenuOption;
 import main.Users.User;
 import main.Users.UserRole;
@@ -67,7 +68,7 @@ public class CustomerMenuTest {
         assertEquals(UserRole.Customer, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(13, options.size());
+        assertEquals(14, options.size());
     }
 
     @Test
@@ -118,6 +119,14 @@ public class CustomerMenuTest {
         menu.processInput(exitSelection);
         assertTrue(outStream.toString().contains("Logging out user..."));
         assertNull(AppContext.getInstance().getCurrentUser());
+    }
+
+    @Test
+    public void testChangePasswordSucess() {
+        simulateInput("testPassword\nnewPassword\n");
+        IMenuOption changePassword = new ChangePasswordOption();
+        changePassword.execute();
+        assertEquals(ctx.getCurrentUser().getPassword(), "newPassword");
     }
 }
 

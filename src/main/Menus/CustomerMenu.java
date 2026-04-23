@@ -24,6 +24,7 @@ public class CustomerMenu extends AbstractMenu {
         addMenuOption(new RequestWithdrawlLimitOption());
         addMenuOption(new SelectAccountOption());
         addMenuOption(new UserViewAllBalancesOption());
+        addMenuOption(new ChangePasswordOption());
         addMenuOption(new ChangeAccountNicknameOption());
         addMenuOption(new RequestWithdrawlLimitOption());
     }
