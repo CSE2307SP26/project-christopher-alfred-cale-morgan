@@ -6,10 +6,13 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.List;
 
+import javax.accessibility.AccessibleAttributeSequence;
+
 import main.AppContext;
 import main.Menus.AbstractMenu;
 import main.Menus.AdminMenu;
 import main.Menus.MenuOptions.AddAccountOption;
+import main.Menus.MenuOptions.AdminCloseAccount;
 import main.Menus.MenuOptions.DepositOption;
 import main.Menus.MenuOptions.IMenuOption;
 import main.Menus.MenuOptions.SelectAccountOption;
@@ -141,6 +144,24 @@ public class AdminMenuTest {
         menu.processInput(getBalancesSelection);
         assertTrue(outStream.toString().contains("25")); 
         assertTrue(outStream.toString().contains("35"));  
+    }
+
+    @Test
+    public void testCloseAccount(){
+        IMenuOption add = new AddAccountOption();
+        UserService.getInstance().registerUser("customerOne", "passwordOne", UserRole.Customer);
+        User customerOne = UserService.getInstance().authenticate("customerOne", "passwordOne");
+        ctx.setCurrentUser(customerOne);
+        simulateInput("C\n");
+        add.execute();
+        ;
+
+        User testUser = UserService.getInstance().authenticate("testAdmin", "testPassword");
+        ctx.setCurrentUser(testUser);
+        IMenuOption closeAccount = new AdminCloseAccount();
+        simulateInput("1\n");
+        closeAccount.execute();
+        assertEquals(ctx.getAllAccounts().getNumAccounts(),0);
     }
 }
     

@@ -3,6 +3,7 @@ package main.Users;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.BankAccount;
 import main.UserLimitRequest;
 import main.UserRequestManager;
 
@@ -78,5 +79,9 @@ public class User {
         } else {
             return false;
         }
+    }
+
+    public boolean removeAccount(Integer id) {
+        return this.accountIds.remove(id);
     }
 }
