@@ -212,4 +212,18 @@ public class BankAccountTest {
         // ensure balance was not changed after invalid withdrawal
         assertEquals(250, allAccounts.getAccount(2).getBalance(), 0.01);
     }
+
+    @Test
+    public void testSetAndGetAccountNickname() {
+        BankAccountManager allAccounts = new BankAccountManager();
+        allAccounts.createCheckingAccount();
+        BankAccount account = allAccounts.getAccount(1);
+        assertEquals("", account.getAccountNickname());
+
+        account.setAccountNickname("Emergency Savings");
+        assertEquals("Emergency Savings", account.getAccountNickname());
+
+        account.setAccountNickname("Vacation Fund");
+        assertEquals("Vacation Fund", account.getAccountNickname());
+    }
 }

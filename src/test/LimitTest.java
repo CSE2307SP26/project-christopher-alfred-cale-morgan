@@ -1,15 +1,9 @@
 package test;
 
-import main.AppContext;
 import main.UserLimitRequest;
-import main.UserRequests;
-import main.Users.User;
-import main.Users.UserService;
+import main.UserRequestManager;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.lang.annotation.Target;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -18,12 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 public class LimitTest {
 
 
-    private UserRequests requests;
+    private UserRequestManager requests;
 
     @BeforeEach
     void setUp() {
         // Arrange: Start each test with a fresh manager
-        UserRequests requests = new UserRequests();
+        requests = new UserRequestManager();
     }
 
     @AfterEach

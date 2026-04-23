@@ -1,7 +1,6 @@
 package main.Menus.MenuOptions;
 
 import main.AppContext;
-import main.Utils.InputUtils;
 
 public class FreezeOption implements IMenuOption {
     public String getDisplayString() {
