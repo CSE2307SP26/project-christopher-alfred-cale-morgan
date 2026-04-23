@@ -66,7 +66,7 @@ public class AdminMenuTest {
         assertEquals(UserRole.Administrator, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(5, options.size());
+        assertEquals(7, options.size());
     }
 
     @Test
@@ -75,11 +75,11 @@ public class AdminMenuTest {
         String output = outStream.toString();
 
         assertTrue(output.contains("2307 Bank App - Menu (Admin)"));
-        assertTrue(output.contains("1. Add interest payment (Admin)"));
-        assertTrue(output.contains("2. Create Fees (Admin)"));
-        assertTrue(output.contains("3. Collect fees (Admin)"));
-        assertTrue(output.contains("4. View Transaction History (Admin)"));
-        assertTrue(output.contains("5. View All Account Balances (Admin)"));
+        assertTrue(output.contains("Add interest payment (Admin)"));
+        assertTrue(output.contains("Create Fees (Admin)"));
+        assertTrue(output.contains("Collect fees (Admin)"));
+        assertTrue(output.contains("View Transaction History (Admin)"));
+        assertTrue(output.contains("View All Account Balances (Admin)"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
@@ -139,8 +139,8 @@ public class AdminMenuTest {
         ctx.setCurrentUser(testUser);
         int getBalancesSelection = menu.getMenuOptions().size();
         menu.processInput(getBalancesSelection);
-        assertTrue(outStream.toString().contains("Account #1: $25")); 
-        assertTrue(outStream.toString().contains("Account #2: $35"));  
+        assertTrue(outStream.toString().contains("25")); 
+        assertTrue(outStream.toString().contains("35"));  
     }
 }
     

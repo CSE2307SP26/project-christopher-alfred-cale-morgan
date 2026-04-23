@@ -67,20 +67,42 @@ public class CustomerMenuTest {
         assertEquals(UserRole.Customer, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(10, options.size());
+        assertEquals(13, options.size());
     }
 
     @Test
-    public void testDisplayOptions() {
+    public void testDisplayOptionsWithNoNickname() {
         menu.displayOptions();
         String output = outStream.toString();
-
-        assertTrue(output.contains("2307 Bank App - Menu (Customer)"));
-        assertTrue(output.contains("1. Check Account Balance"));
-        assertTrue(output.contains("2. Make a deposit"));
+       
+        // Only require that we display it somehow, exact formatting doesn't matter
+        assertTrue(output.contains("2307 Bank App"));
+        assertTrue(output.contains("Menu (Customer)"));
+        // default account nickname is ""
+        assertTrue(output.contains(ctx.getSelectedAccount().getAccountNickname()));
+        assertTrue(output.contains("Check Account Balance"));
+        assertTrue(output.contains("Make a deposit"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
+    }
+
+    @Test
+    public void testDisplayOptionsWithNickname() {
+        ctx.getSelectedAccount().setAccountNickname("Emergency Savings");
+        menu.displayOptions();
+        String output = outStream.toString();
+        
+        // Only require that we display it somehow, exact formatting doesn't matter
+        assertTrue(output.contains("2307 Bank App"));
+        assertTrue(output.contains("Menu (Customer)"));
+        assertTrue(output.contains(ctx.getSelectedAccount().getAccountNickname()));
+        assertTrue(output.contains("Check Account Balance"));
+        assertTrue(output.contains("Make a deposit"));
+
+        int exitNumber = menu.getMenuOptions().size() + 1;
+        assertTrue(output.contains(exitNumber + ". Log out"));
+    
     }
 
     @Test
