@@ -20,7 +20,7 @@ public class WithdrawOption implements IMenuOption {
         }
         double amount = InputUtils.getDoubleUntil("How much would you like to withdraw: ",
             "Please enter a positive amount less than or equal to your account balance",
-            d -> (d > 0 && ctx.getSelectedAccount().getBalance() >= d)
+            d -> (d > 0 && ctx.getSelectedAccount().getBalance() >= d )
         );
         ctx.getSelectedAccount().withdraw(amount);
         System.out.println("Successfully Withdrew $" + amount);
