@@ -6,21 +6,25 @@ public abstract class BankAccount {
     private double balance;
     private double accountFees;
     private int id;
-    private Transactions transactions;
+    private TransactionHistory transactions;
     protected double interestRate;
     private boolean isFrozen;
+    private double widthdrawlLimit;
     protected AccountType accountType;
     public static final double DEFAULT_INTEREST_RATE = 2.39;
-    
+    private String accountNickname;
+
     //Users need to share what account they want to transfer to, so needed ID to represent accounts. Starts at 1, increments for each new account
 
     public BankAccount(int id) {
         this.id = id;
         this.balance = 0;
         this.interestRate = DEFAULT_INTEREST_RATE;
-        this.transactions = new Transactions();
+        this.transactions = new TransactionHistory();
         isFrozen= false;
+        this.widthdrawlLimit = -1;
         accountType = null;
+        accountNickname = "";
     }
 
     public AccountType getAccountType() {
@@ -59,7 +63,7 @@ public abstract class BankAccount {
         return this.balance;
     }
 
-    public Transactions getTransactions() {
+    public TransactionHistory getTransactions() {
         return transactions;
     }
 
@@ -97,6 +101,9 @@ public abstract class BankAccount {
             throw new IllegalArgumentException("Not enough funds");
         if(isFrozen)
             throw new IllegalArgumentException("Account is Frozen");
+
+        if(amount > widthdrawlLimit && widthdrawlLimit > 0)
+            throw new IllegalArgumentException("Amount over withdrawl limit");
 
         this.balance -= amount;
         transactions.addTransaction(
@@ -147,5 +154,21 @@ public abstract class BankAccount {
 
     public boolean getFrozen() {
         return isFrozen;
+    }
+
+    public void setAccountNickname(String newNickname) {
+        this.accountNickname = newNickname;
+    }
+
+    public String getAccountNickname() {
+        return this.accountNickname;
+    }
+  
+    public double getLimit() {
+        return widthdrawlLimit;
+    }
+
+    public void setLimit(double lim) {
+        this.widthdrawlLimit = lim; 
     }
 }

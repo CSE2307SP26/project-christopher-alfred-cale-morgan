@@ -1,12 +1,13 @@
 package main.Menus.MenuOptions;
 
-import main.Utils.InputUtils;
+
 import main.AppContext;
 import main.Users.User;
 
-public class SelectAccountOption implements IMenuOption {
+
+public class UserViewAllBalancesOption implements IMenuOption {
     public String getDisplayString() {
-        return "Select an account";
+        return "View All Account Balances";
     }
 
     public void execute() {
@@ -15,18 +16,14 @@ public class SelectAccountOption implements IMenuOption {
             System.out.println("No accounts yet, please make one first.");
             return;
         }
+        double sumBalance = 0.0;
         for(int accountId : currentUser.getAccountIds()) {
             System.out.println(AppContext.getInstance().getAllAccounts().getAccount(accountId).getAccountType() + " | Account ID: " + accountId + " | Balance: " + AppContext.getInstance().getAllAccounts().getAccount(accountId).getBalance());
+            sumBalance += AppContext.getInstance().getAllAccounts().getAccount(accountId).getBalance();
         }
         System.out.println();
 
-        int accountId = InputUtils.getIntUntil("Enter the account ID you want to select: ",
-            "Please enter a valid account ID",
-            id -> AppContext.getInstance().getCurrentUser().getAccountIds().contains(id));
-        AppContext.getInstance().setSelectedAccount(AppContext.getInstance().getAllAccounts().getAccount(accountId));
-
-        System.out.println("Selected account #" + accountId);
+        System.out.println("Total Balance Across Accounts | " + sumBalance);
 
     }
-    
 }

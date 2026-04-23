@@ -3,12 +3,12 @@ package main;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankAccounts {
+public class BankAccountManager {
 
     private Map<Integer, BankAccount> accounts;
     private int nextId;
 
-    public BankAccounts() {
+    public BankAccountManager() {
         accounts = new HashMap<>();
         nextId = 1;
     }
@@ -30,6 +30,10 @@ public class BankAccounts {
 
     public BankAccount getAccount(int id) {
         return accounts.get(id);
+    }
+
+    public BankAccount deleteAccount(int id) {
+        return accounts.remove(id);
     }
     public int getNumAccounts() { return accounts.size(); }
 }

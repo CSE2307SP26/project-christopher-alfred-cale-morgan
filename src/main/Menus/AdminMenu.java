@@ -14,10 +14,13 @@ public class AdminMenu extends AbstractMenu {
         ctx = AppContext.getInstance();
 
         addMenuOption(new AddInterestPaymentOption());
+        addMenuOption(new AdminSetInterestOption());
         addMenuOption(new CreateFeesOption());
         addMenuOption(new CollectFeesOption());
         addMenuOption(new AdminViewHistoryOption());
         addMenuOption(new ViewAllBalancesOption());
+        addMenuOption(new AdminCloseAccount());
+        addMenuOption(new ResolveLimitRequest());
     }
 
     @Override

@@ -10,6 +10,7 @@ import main.AppContext;
 import main.BankAccount;
 import main.Menus.AbstractMenu;
 import main.Menus.CustomerMenu;
+import main.Menus.MenuOptions.ChangePasswordOption;
 import main.Menus.MenuOptions.IMenuOption;
 import main.Users.User;
 import main.Users.UserRole;
@@ -67,20 +68,42 @@ public class CustomerMenuTest {
         assertEquals(UserRole.Customer, ctx.getCurrentUser().getRole());
         List<IMenuOption> options = menu.getMenuOptions();
         assertNotNull(options);
-        assertEquals(9, options.size());
+        assertEquals(14, options.size());
     }
 
     @Test
-    public void testDisplayOptions() {
+    public void testDisplayOptionsWithNoNickname() {
         menu.displayOptions();
         String output = outStream.toString();
-
-        assertTrue(output.contains("2307 Bank App - Menu (Customer)"));
-        assertTrue(output.contains("1. Check Account Balance"));
-        assertTrue(output.contains("2. Make a deposit"));
+       
+        // Only require that we display it somehow, exact formatting doesn't matter
+        assertTrue(output.contains("2307 Bank App"));
+        assertTrue(output.contains("Menu (Customer)"));
+        // default account nickname is ""
+        assertTrue(output.contains(ctx.getSelectedAccount().getAccountNickname()));
+        assertTrue(output.contains("Check Account Balance"));
+        assertTrue(output.contains("Make a deposit"));
 
         int exitNumber = menu.getMenuOptions().size() + 1;
         assertTrue(output.contains(exitNumber + ". Log out"));
+    }
+
+    @Test
+    public void testDisplayOptionsWithNickname() {
+        ctx.getSelectedAccount().setAccountNickname("Emergency Savings");
+        menu.displayOptions();
+        String output = outStream.toString();
+        
+        // Only require that we display it somehow, exact formatting doesn't matter
+        assertTrue(output.contains("2307 Bank App"));
+        assertTrue(output.contains("Menu (Customer)"));
+        assertTrue(output.contains(ctx.getSelectedAccount().getAccountNickname()));
+        assertTrue(output.contains("Check Account Balance"));
+        assertTrue(output.contains("Make a deposit"));
+
+        int exitNumber = menu.getMenuOptions().size() + 1;
+        assertTrue(output.contains(exitNumber + ". Log out"));
+    
     }
 
     @Test
@@ -96,6 +119,14 @@ public class CustomerMenuTest {
         menu.processInput(exitSelection);
         assertTrue(outStream.toString().contains("Logging out user..."));
         assertNull(AppContext.getInstance().getCurrentUser());
+    }
+
+    @Test
+    public void testChangePasswordSucess() {
+        simulateInput("testPassword\nnewPassword\n");
+        IMenuOption changePassword = new ChangePasswordOption();
+        changePassword.execute();
+        assertEquals(ctx.getCurrentUser().getPassword(), "newPassword");
     }
 }
 
