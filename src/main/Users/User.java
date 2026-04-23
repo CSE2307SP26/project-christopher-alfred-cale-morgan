@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.BankAccount;
+import main.UserLimitRequest;
+import main.UserRequestManager;
 
 public class User {
 
@@ -14,10 +16,13 @@ public class User {
 
     private List<Integer> accountIds;
 
+    private UserRequestManager limitsRequested;
+
     protected User(String username, String password, UserRole role) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.limitsRequested = new UserRequestManager();
         this.accountIds = new ArrayList<>();
     }
 
@@ -48,6 +53,19 @@ public class User {
     public List<Integer> getAccountIds() {
         return accountIds;
     }
+
+    public UserRequestManager getUserLimitsRequested() {
+        return limitsRequested;
+    }
+
+    public void addRequestLimit(UserLimitRequest req) {
+        this.limitsRequested.addRequest(req);
+    }
+
+    public void finishRequest(UserLimitRequest req) {
+        this.limitsRequested.removeRequest(req);
+    }
+
 
     /***
      * Add an accountId to the user
