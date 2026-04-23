@@ -15,6 +15,10 @@ public class UserRequestManager {
         requests.add(userRequest);
     }
 
+    public void removeRequest(UserLimitRequest userRequest) {
+        requests.remove(userRequest);
+    }
+
     public List<UserLimitRequest> getAllRequests() {
         return requests;
     }
